@@ -10,13 +10,9 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    m_serialPortsModel = new QStringListModel(this);
-    ui->comboBox->setModel(m_serialPortsModel);
-
     connect(ui->pbRescan, &QPushButton::clicked, this, &MainWindow::updateComboBox);
 
     updateComboBox();
-
 }
 
 MainWindow::~MainWindow()
@@ -27,13 +23,12 @@ MainWindow::~MainWindow()
 void MainWindow::updateComboBox()
 {
     auto ports = QSerialPortInfo::availablePorts();
-    auto list = QStringList();
+
+    ui->comboBox->clear();
 
     for (auto &port : ports)
     {
-        list << port.portName();
+        ui->comboBox->addItem(port.portName());
     }
-
-    m_serialPortsModel->setStringList(list);
 }
 

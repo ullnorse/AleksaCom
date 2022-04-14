@@ -22,7 +22,5 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-
-    QStringListModel *m_serialPortsModel;
 };
 #endif // MAINWINDOW_H
