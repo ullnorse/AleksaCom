@@ -2,6 +2,7 @@
 #include "./ui_mainwindow.h"
 
 #include <QLabel>
+#include <QSerialPortInfo>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -9,26 +10,30 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    ui->statusbar->showMessage("Aleksa");
-    ui->statusbar->setStyleSheet("QStatusBar::item { border: 1px solid red; border-radius: 3px; } ");
+    m_serialPortsModel = new QStringListModel(this);
+    ui->comboBox->setModel(m_serialPortsModel);
 
-    auto l1 = new QLabel(this);
-    l1->setText("Aleksa");
-    l1->setStyleSheet("border: 0; color: blue;");
-    auto l2 = new QLabel(this);
-    l2->setText("Pavle");
-    l2->setStyleSheet("border: 0; color: red;");
+    connect(ui->pbRescan, &QPushButton::clicked, this, &MainWindow::updateComboBox);
 
-
-//    ui->statusbar->addPermanentWidget();
-    ui->statusbar->addPermanentWidget(l1);
-    ui->statusbar->addPermanentWidget(l2);
-
+    updateComboBox();
 
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::updateComboBox()
+{
+    auto ports = QSerialPortInfo::availablePorts();
+    auto list = QStringList();
+
+    for (auto &port : ports)
+    {
+        list << port.portName();
+    }
+
+    m_serialPortsModel->setStringList(list);
 }
 
