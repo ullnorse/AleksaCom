@@ -4,6 +4,9 @@
 #include <QMainWindow>
 
 #include <QStringListModel>
+#include <QStringList>
+
+#include "serialport.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -17,10 +20,15 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+signals:
+
 private slots:
-    void updateComboBox();
+    void serialPortNames(const QStringList &portNames);
 
 private:
     Ui::MainWindow *ui;
+
+private:
+    SerialPort *m_serialPort;
 };
 #endif // MAINWINDOW_H

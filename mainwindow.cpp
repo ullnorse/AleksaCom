@@ -10,9 +10,18 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    connect(ui->pbRescan, &QPushButton::clicked, this, &MainWindow::updateComboBox);
+    m_serialPort = new SerialPort(this);
 
-    updateComboBox();
+    connect(ui->pbRescan, &QPushButton::clicked, m_serialPort, &SerialPort::serialPortsRequested);
+    connect(m_serialPort, &SerialPort::serialPortNames, this, &MainWindow::serialPortNames);
+
+    serialPortNames(m_serialPort->getPortNames());
+
+    ui->rb115200->setChecked(true);
+    ui->rb8->setChecked(true);
+    ui->rbNone->setChecked(true);
+    ui->rb1->setChecked(true);
+    ui->rbHandshakeNone->setChecked(true);
 }
 
 MainWindow::~MainWindow()
@@ -20,15 +29,9 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::updateComboBox()
+void MainWindow::serialPortNames(const QStringList &portNames)
 {
-    auto ports = QSerialPortInfo::availablePorts();
-
     ui->comboBox->clear();
-
-    for (auto &port : ports)
-    {
-        ui->comboBox->addItem(port.portName());
-    }
+    ui->comboBox->addItems(portNames);
 }
 
