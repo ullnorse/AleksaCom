@@ -24,27 +24,38 @@ void SerialPort::serialPortsRequested()
 
 void SerialPort::onPbConnectClicked(SerialPort::Settings &settings)
 {
-    qDebug("From serial port pb connect clicked");
-
     m_serialPort->setPortName(settings.portName);
     m_serialPort->setBaudRate(settings.baudRate);
     m_serialPort->setDataBits(settings.dataBits);
     m_serialPort->setFlowControl(settings.flowControl);
     m_serialPort->setStopBits(settings.stopBits);
 
-//    if (m_serialPort->open(QIODevice::ReadOnly) == true)
-//    {
-//        qDebug() << "Device successfully opened";
-//    }
-//    else
-//    {
-//        qDebug() << "Can't open serial port";
-//    }
+    if (m_serialPort->open(QIODevice::ReadWrite))
+    {
+        m_serialPort->clear(QSerialPort::AllDirections);
+        m_serialPort->setReadBufferSize(1000);
+    }
+    else
+    {
+        qDebug() << "Can't open serial port";
+    }
+}
+
+void SerialPort::onPbDisconnectClicked()
+{
+    if (m_serialPort->isOpen())
+    {
+        m_serialPort->close();
+    }
 }
 
 void SerialPort::handleReadyRead()
 {
-    emit serialPortData(QString(m_serialPort->readAll()));
+    if (m_serialPort->canReadLine())
+    {
+        emit serialPortData(m_serialPort->readLine());
+    }
+
 }
 
 QStringList SerialPort::getPortNames()

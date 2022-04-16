@@ -5,6 +5,7 @@
 #include <QSerialPortInfo>
 #include <QSerialPort>
 #include <QStringList>
+#include <QByteArray>
 
 class SerialPort : public QObject
 {
@@ -26,11 +27,12 @@ public:
 
 signals:
     void serialPortNames(const QStringList &portNames);
-    void serialPortData(const QString &data);
+    void serialPortData(const QByteArray &data);
 
 public slots:
     void serialPortsRequested();
     void onPbConnectClicked(SerialPort::Settings &settings);
+    void onPbDisconnectClicked();
 
 private:
     void handleReadyRead();

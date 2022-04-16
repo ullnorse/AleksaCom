@@ -6,6 +6,7 @@
 #include <QStringListModel>
 #include <QStringList>
 #include <QString>
+#include <QByteArray>
 
 #include "serialport.h"
 
@@ -23,11 +24,12 @@ public:
 
 signals:
     void pbConnectClicked(SerialPort::Settings &settings);
+    void pbDisconnectClicked();
 
 private slots:
     void serialPortNames(const QStringList &portNames);
     void onPbConnectClicked();
-    void handleSerialPortData(const QString &data);
+    void handleSerialPortData(const QByteArray &data);
 
 private:
     SerialPort::Settings getSerialPortSettings() const;

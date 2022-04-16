@@ -5,6 +5,9 @@
 #include <QSerialPortInfo>
 #include <QButtonGroup>
 #include <QPair>
+#include <QFont>
+#include <QFontDialog>
+#include <QTime>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -19,17 +22,18 @@ MainWindow::MainWindow(QWidget *parent)
 
     serialPortNames(m_serialPort->getPortNames());
 
-    ui->rb115200->setChecked(true);
-    ui->rb8->setChecked(true);
-    ui->rbNone->setChecked(true);
-    ui->rb1->setChecked(true);
-    ui->rbHandshakeNone->setChecked(true);
-
     connect(ui->pbConDiscon, &QPushButton::clicked, this, &MainWindow::onPbConnectClicked);
-    connect(ui->pbAbout, &QPushButton::clicked, QApplication::instance(), &QApplication::aboutQt);
+    connect(ui->pbAboutQt, &QPushButton::clicked, QApplication::instance(), &QApplication::aboutQt);
+    connect(ui->pbReceiveClear, &QPushButton::clicked, ui->teReceive, &QTextEdit::clear);
 
     connect(this, &MainWindow::pbConnectClicked, m_serialPort, &SerialPort::onPbConnectClicked);
+    connect(this, &MainWindow::pbDisconnectClicked, m_serialPort, &SerialPort::onPbDisconnectClicked);
     connect(m_serialPort, &SerialPort::serialPortData, this, &MainWindow::handleSerialPortData);
+
+    connect(ui->pbSentFont, &QPushButton::clicked, this, [this]()
+    {
+        this->ui->teReceive->setFont(QFontDialog::getFont(0, this));
+    });
 }
 
 MainWindow::~MainWindow()
@@ -45,53 +49,54 @@ void MainWindow::serialPortNames(const QStringList &portNames)
 
 void MainWindow::onPbConnectClicked()
 {
-    auto settings = getSerialPortSettings();
-    emit pbConnectClicked(settings);
+    if (!ui->pbConDiscon->text().compare("Connect"))
+    {
+        ui->pbConDiscon->setText("Disconnect");
+        auto settings = getSerialPortSettings();
+        emit pbConnectClicked(settings);
+    }
+    else
+    {
+        ui->pbConDiscon->setText("Connect");
+        emit pbDisconnectClicked();
+    }
+
 }
 
-void MainWindow::handleSerialPortData(const QString &data)
+void MainWindow::handleSerialPortData(const QByteArray &data)
 {
-    ui->textEdit->append(data);
+    static int cnt = 0;
+
+    int c = data.count(ui->spinBox_2->text().toInt());
+
+    if (c != 0)
+    {
+        cnt += c;
+        ui->lCounter->setText(QString("Counter = ") + QString::number(cnt));
+    }
+
+
+    ui->teReceive->moveCursor(QTextCursor::End);
+
+    if (ui->cbTime->isChecked())
+    {
+        ui->teReceive->insertPlainText(QTime::currentTime().toString("hh:mm:ss.zzz> "));
+    }
+
+    ui->teReceive->insertPlainText(QString(data));
+    ui->teReceive->moveCursor(QTextCursor::End);
 }
 
 SerialPort::Settings MainWindow::getSerialPortSettings() const
 {
     SerialPort::Settings settings;
 
-    QButtonGroup buttonGroupBaudRate;
-    QButtonGroup buttonGroupDataBits;
-    QButtonGroup buttonGroupParity;
-    QButtonGroup buttonGroupStopBits;
-    QButtonGroup buttonGroupHandshaking;
-
-    auto baudRateButtons      = ui->gbBaudRate->findChildren<QRadioButton*>();
-    auto groupDataBitsButtons = ui->gbDataBits->findChildren<QRadioButton*>();
-    auto parityButtons        = ui->gbParity->findChildren<QRadioButton*>();
-    auto stopBitsButtons      = ui->gbStopBits->findChildren<QRadioButton*>();
-    auto handshakingButtons   = ui->gbHandshaking->findChildren<QRadioButton*>();
-
-    QList<QPair<QButtonGroup*, QList<QRadioButton*>>> buttonGroups;
-    buttonGroups.append(qMakePair(&buttonGroupBaudRate, baudRateButtons));
-    buttonGroups.append(qMakePair(&buttonGroupBaudRate, baudRateButtons));
-    buttonGroups.append(qMakePair(&buttonGroupDataBits, groupDataBitsButtons));
-    buttonGroups.append(qMakePair(&buttonGroupParity, parityButtons));
-    buttonGroups.append(qMakePair(&buttonGroupStopBits, stopBitsButtons));
-    buttonGroups.append(qMakePair(&buttonGroupHandshaking, handshakingButtons));
-
-    for (auto & [buttonGroup, buttons] : buttonGroups)
-    {
-        for (int i = 0; i < buttons.size(); i++)
-        {
-            buttonGroup->addButton(buttons[i], i);
-        }
-    }
-
     settings.portName    = ui->comboBox->currentText();
-    settings.baudRate    = static_cast<QSerialPort::BaudRate>(buttonGroupBaudRate.checkedButton()->objectName().remove(0, 2).toInt());
-    settings.dataBits    = static_cast<QSerialPort::DataBits>(buttonGroupDataBits.checkedButton()->objectName().remove(0, 2).toInt());
-    settings.parity      = static_cast<QSerialPort::Parity>(buttonGroupParity.checkedButton()->objectName().remove(0, 2).toInt());
-    settings.stopBits    = static_cast<QSerialPort::StopBits>(buttonGroupStopBits.checkedButton()->objectName().remove(0, 2). toInt());
-    settings.flowControl = QSerialPort::FlowControl::NoFlowControl;
+    settings.baudRate    = static_cast<QSerialPort::BaudRate>(ui->bgBaudrate->checkedButton()->objectName().remove(0, 2).toInt());
+    settings.dataBits    = static_cast<QSerialPort::DataBits>(ui->bgDataBits->checkedButton()->objectName().remove(0, 2).toInt());
+    settings.parity      = static_cast<QSerialPort::Parity>(ui->bgParity->checkedButton()->objectName().remove(0, 8).toInt());
+    settings.stopBits    = static_cast<QSerialPort::StopBits>(ui->bgStopBits->checkedButton()->objectName().remove(0, 2). toInt());
+    settings.flowControl = static_cast<QSerialPort::FlowControl>(ui->bgHandshaking->checkedButton()->objectName().remove(0, 13).toInt());
 
     qDebug() << "Sending settings "
              << settings.portName << " "
