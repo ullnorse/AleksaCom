@@ -23,14 +23,14 @@ MainWindow::MainWindow(QWidget *parent)
     serialPortNames(m_serialPort->getPortNames());
 
     connect(ui->pbConDiscon, &QPushButton::clicked, this, &MainWindow::onPbConnectClicked);
-    connect(ui->pbAboutQt, &QPushButton::clicked, QApplication::instance(), &QApplication::aboutQt);
-    connect(ui->pbReceiveClear, &QPushButton::clicked, ui->teReceive, &QTextEdit::clear);
+//    connect(ui->pbAboutQt, &QPushButton::clicked, QApplication::instance(), &QApplication::aboutQt);
+    connect(ui->pbReceiveClear, &QPushButton::clicked, ui->teReceive, &QPlainTextEdit::clear);
 
     connect(this, &MainWindow::pbConnectClicked, m_serialPort, &SerialPort::onPbConnectClicked);
     connect(this, &MainWindow::pbDisconnectClicked, m_serialPort, &SerialPort::onPbDisconnectClicked);
     connect(m_serialPort, &SerialPort::serialPortData, this, &MainWindow::handleSerialPortData);
 
-    connect(ui->pbSentFont, &QPushButton::clicked, this, [this]()
+    connect(ui->pbSetFont, &QPushButton::clicked, this, [this]()
     {
         this->ui->teReceive->setFont(QFontDialog::getFont(0, this));
     });
@@ -92,11 +92,11 @@ SerialPort::Settings MainWindow::getSerialPortSettings() const
     SerialPort::Settings settings;
 
     settings.portName    = ui->comboBox->currentText();
-    settings.baudRate    = static_cast<QSerialPort::BaudRate>(ui->bgBaudrate->checkedButton()->objectName().remove(0, 2).toInt());
-    settings.dataBits    = static_cast<QSerialPort::DataBits>(ui->bgDataBits->checkedButton()->objectName().remove(0, 2).toInt());
+    settings.baudRate    = static_cast<QSerialPort::BaudRate>(ui->bgBaudRate->checkedButton()->objectName().remove(0, 10).toInt());
+    settings.dataBits    = static_cast<QSerialPort::DataBits>(ui->bgDataBits->checkedButton()->objectName().remove(0, 10).toInt());
     settings.parity      = static_cast<QSerialPort::Parity>(ui->bgParity->checkedButton()->objectName().remove(0, 8).toInt());
-    settings.stopBits    = static_cast<QSerialPort::StopBits>(ui->bgStopBits->checkedButton()->objectName().remove(0, 2). toInt());
-    settings.flowControl = static_cast<QSerialPort::FlowControl>(ui->bgHandshaking->checkedButton()->objectName().remove(0, 13).toInt());
+    settings.stopBits    = static_cast<QSerialPort::StopBits>(ui->bgStopBits->checkedButton()->objectName().remove(0, 10). toInt());
+    settings.flowControl = static_cast<QSerialPort::FlowControl>(ui->bgFlowControl->checkedButton()->objectName().remove(0, 13).toInt());
 
     qDebug() << "Sending settings "
              << settings.portName << " "
