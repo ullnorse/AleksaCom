@@ -64,13 +64,13 @@
             <widget class="QPushButton" name="pbConDiscon">
              <property name="minimumSize">
               <size>
-               <width>100</width>
+               <width>0</width>
                <height>0</height>
               </size>
              </property>
              <property name="maximumSize">
               <size>
-               <width>100</width>
+               <width>16777215</width>
                <height>16777215</height>
               </size>
              </property>
@@ -1227,16 +1227,28 @@
      <height>22</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionAbout_Qt"/>
+   </widget>
+   <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionAbout_Qt">
+   <property name="text">
+    <string>About Qt</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="bgBaudRate"/>
   <buttongroup name="bgDataBits"/>
-  <buttongroup name="bgParity"/>
+  <buttongroup name="bgBaudRate"/>
   <buttongroup name="bgStopBits"/>
+  <buttongroup name="bgParity"/>
   <buttongroup name="bgFlowControl"/>
   <buttongroup name="bgHexAscii"/>
  </buttongroups>

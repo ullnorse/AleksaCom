@@ -23,13 +23,13 @@ public:
     ~MainWindow();
 
 signals:
-    void pbConnectClicked(SerialPort::Settings &settings);
-    void pbDisconnectClicked();
+    void connectClicked(SerialPort::Settings &settings);
+    void disconnectClicked();
 
 private slots:
     void serialPortNames(const QStringList &portNames);
-    void onPbConnectClicked();
-    void handleSerialPortData(const QByteArray &data);
+    void onConnectDisconnectClicked();
+    void onSerialPortData(const QByteArray &data);
 
 private:
     SerialPort::Settings getSerialPortSettings() const;

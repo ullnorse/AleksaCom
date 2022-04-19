@@ -22,13 +22,16 @@ MainWindow::MainWindow(QWidget *parent)
 
     serialPortNames(m_serialPort->getPortNames());
 
-    connect(ui->pbConDiscon, &QPushButton::clicked, this, &MainWindow::onPbConnectClicked);
+    connect(ui->pbConDiscon, &QPushButton::clicked, this, &MainWindow::onConnectDisconnectClicked);
 //    connect(ui->pbAboutQt, &QPushButton::clicked, QApplication::instance(), &QApplication::aboutQt);
+    connect(ui->actionAbout_Qt, &QAction::triggered, QApplication::instance(), &QApplication::aboutQt);
     connect(ui->pbReceiveClear, &QPushButton::clicked, ui->teReceive, &QPlainTextEdit::clear);
 
-    connect(this, &MainWindow::pbConnectClicked, m_serialPort, &SerialPort::onPbConnectClicked);
-    connect(this, &MainWindow::pbDisconnectClicked, m_serialPort, &SerialPort::onPbDisconnectClicked);
-    connect(m_serialPort, &SerialPort::serialPortData, this, &MainWindow::handleSerialPortData);
+    connect(this, &MainWindow::connectClicked, m_serialPort, &SerialPort::connect);
+    connect(this, &MainWindow::disconnectClicked, m_serialPort, &SerialPort::disconnect);
+    connect(m_serialPort, &SerialPort::serialPortData, this, &MainWindow::onSerialPortData);
+    connect(m_serialPort, &SerialPort::connectionSuccessful, this, [this](){this->ui->pbConDiscon->setText("Disconnect");});
+    connect(m_serialPort, &SerialPort::connectionFailed, this, [this](){this->ui->pbConDiscon->setText("Connect");});
 
     connect(ui->pbSetFont, &QPushButton::clicked, this, [this]()
     {
@@ -47,23 +50,21 @@ void MainWindow::serialPortNames(const QStringList &portNames)
     ui->comboBox->addItems(portNames);
 }
 
-void MainWindow::onPbConnectClicked()
+void MainWindow::onConnectDisconnectClicked()
 {
     if (!ui->pbConDiscon->text().compare("Connect"))
     {
-        ui->pbConDiscon->setText("Disconnect");
         auto settings = getSerialPortSettings();
-        emit pbConnectClicked(settings);
+        emit connectClicked(settings);
     }
-    else
+    else if (!ui->pbConDiscon->text().compare("Disconnect"))
     {
+        emit disconnectClicked();
         ui->pbConDiscon->setText("Connect");
-        emit pbDisconnectClicked();
     }
-
 }
 
-void MainWindow::handleSerialPortData(const QByteArray &data)
+void MainWindow::onSerialPortData(const QByteArray &data)
 {
     static int cnt = 0;
 
@@ -97,14 +98,6 @@ SerialPort::Settings MainWindow::getSerialPortSettings() const
     settings.parity      = static_cast<QSerialPort::Parity>(ui->bgParity->checkedButton()->objectName().remove(0, 8).toInt());
     settings.stopBits    = static_cast<QSerialPort::StopBits>(ui->bgStopBits->checkedButton()->objectName().remove(0, 10). toInt());
     settings.flowControl = static_cast<QSerialPort::FlowControl>(ui->bgFlowControl->checkedButton()->objectName().remove(0, 13).toInt());
-
-    qDebug() << "Sending settings "
-             << settings.portName << " "
-             << settings.baudRate << " "
-             << settings.dataBits << " "
-             << settings.parity   << " "
-             << settings.stopBits << " "
-             << settings.flowControl;
 
     return settings;
 }

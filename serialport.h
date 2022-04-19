@@ -28,14 +28,13 @@ public:
 signals:
     void serialPortNames(const QStringList &portNames);
     void serialPortData(const QByteArray &data);
+    void connectionSuccessful();
+    void connectionFailed();
 
 public slots:
     void serialPortsRequested();
-    void onPbConnectClicked(SerialPort::Settings &settings);
-    void onPbDisconnectClicked();
-
-private:
-    void handleReadyRead();
+    void connect(SerialPort::Settings &settings);
+    void disconnect();
 
 private:
     QSerialPort *m_serialPort;

@@ -2,19 +2,27 @@
 
 #include <QDebug>
 
+#include <algorithm>
+#include <iterator>
+
 
 SerialPort::SerialPort(QObject *parent)
     : QObject{parent}
 {
     m_serialPort = new QSerialPort(this);
 
-
-    connect(m_serialPort, &QSerialPort::readyRead, this, &SerialPort::handleReadyRead);
+    QObject::connect(m_serialPort, &QSerialPort::readyRead, this, [this]()
+    {
+        if (m_serialPort->canReadLine())
+        {
+            emit serialPortData(m_serialPort->readLine());
+        }
+    });
 }
 
 SerialPort::~SerialPort()
 {
-    m_serialPort->close();
+    disconnect();
 }
 
 void SerialPort::serialPortsRequested()
@@ -22,7 +30,7 @@ void SerialPort::serialPortsRequested()
     emit serialPortNames(getPortNames());
 }
 
-void SerialPort::onPbConnectClicked(SerialPort::Settings &settings)
+void SerialPort::connect(SerialPort::Settings &settings)
 {
     m_serialPort->setPortName(settings.portName);
     m_serialPort->setBaudRate(settings.baudRate);
@@ -33,15 +41,16 @@ void SerialPort::onPbConnectClicked(SerialPort::Settings &settings)
     if (m_serialPort->open(QIODevice::ReadWrite))
     {
         m_serialPort->clear(QSerialPort::AllDirections);
-        m_serialPort->setReadBufferSize(1000);
+        emit connectionSuccessful();
     }
     else
     {
         qDebug() << "Can't open serial port";
+        emit connectionFailed();
     }
 }
 
-void SerialPort::onPbDisconnectClicked()
+void SerialPort::disconnect()
 {
     if (m_serialPort->isOpen())
     {
@@ -49,28 +58,17 @@ void SerialPort::onPbDisconnectClicked()
     }
 }
 
-void SerialPort::handleReadyRead()
-{
-    if (m_serialPort->canReadLine())
-    {
-        emit serialPortData(m_serialPort->readLine());
-    }
-
-}
-
 QStringList SerialPort::getPortNames()
 {
-    auto ports = QSerialPortInfo::availablePorts();
     auto list = QStringList();
 
-    for (auto &port : ports)
-    {
 #ifdef Q_OS_WIN
-        list << port.portName();
+    std::ranges::transform(QSerialPortInfo::availablePorts(),
+                           std::back_inserter(list), [](QSerialPortInfo info) {return info.portName();});
 #elif defined Q_OS_LINUX
-        list << port.systemLocation();
+    std::ranges::transform(QSerialPortInfo::availablePorts(),
+                           std::back_inserter(list), [](QSerialPortInfo info) {return info.systemLocation();});
 #endif
-    }
 
     return list;
 }
