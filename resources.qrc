@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/img">
+        <file>ascii_table.png</file>
+    </qresource>
+</RCC>

@@ -7,6 +7,7 @@
 #include <QStringList>
 #include <QString>
 #include <QByteArray>
+#include <QLabel>
 
 #include "serialport.h"
 
@@ -32,6 +33,8 @@ private slots:
     void onConnectDisconnectClicked();
     void onSerialPortData(const QByteArray &data);
     void onSendClicked();
+    void onAsciiTableClicked();
+    void onSendFileClicked();
 
 private:
     SerialPort::Settings getSerialPortSettings() const;
@@ -41,5 +44,7 @@ private:
 
 private:
     SerialPort *m_serialPort;
+
+    QLabel *label;
 };
 #endif // MAINWINDOW_H

@@ -44,34 +44,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->pbSend, &QPushButton::clicked, this, &MainWindow::onSendClicked);
     connect(this, &MainWindow::dataForTransmit, m_serialPort, &SerialPort::send);
 
-    connect(ui->pbSendFile, &QPushButton::clicked, this, [this]()
-    {
-        auto dir = QStandardPaths::standardLocations(QStandardPaths::StandardLocation::HomeLocation)[0];
-
-        auto fileName = QFileDialog::getOpenFileName(this, "File to send", dir);
-
-        auto text = QByteArray();
-
-        if (fileName.isEmpty())
-        {
-            return;
-        }
-        else
-        {
-            QFile file{fileName};
-
-            if (file.open(QIODevice::OpenModeFlag::ReadOnly))
-            {
-                text = file.readAll();
-            }
-        }
-
-//        qDebug() << text;
-
-        emit dataForTransmit(text);
+    connect(ui->pbSendFile, &QPushButton::clicked, this, &MainWindow::onSendFileClicked);
+    connect(ui->pbAsciiTable, &QPushButton::clicked, this, &MainWindow::onAsciiTableClicked);
 
 
-    });
 }
 
 MainWindow::~MainWindow()
@@ -144,6 +120,40 @@ void MainWindow::onSendClicked()
     emit dataForTransmit(QByteArray(text.toUtf8()));
 
     ui->leSend->clear();
+}
+
+void MainWindow::onAsciiTableClicked()
+{
+    auto label = new QLabel();
+    label->setPixmap(QPixmap::fromImage(QImage(":/img/ascii_table.png")));
+    label->setFocus();
+    label->setAttribute(Qt::WA_DeleteOnClose);
+    label->show();
+}
+
+void MainWindow::onSendFileClicked()
+{
+    auto dir = QStandardPaths::standardLocations(QStandardPaths::StandardLocation::HomeLocation)[0];
+    auto fileName = QFileDialog::getOpenFileName(this, "File to send", dir);
+    auto text = QByteArray();
+
+    if (fileName.isEmpty())
+    {
+        return;
+    }
+    else
+    {
+        QFile file{fileName};
+
+        if (file.open(QIODevice::OpenModeFlag::ReadOnly))
+        {
+            text = file.readAll();
+        }
+    }
+
+//        qDebug() << text;
+
+    emit dataForTransmit(text);
 }
 
 SerialPort::Settings MainWindow::getSerialPortSettings() const
