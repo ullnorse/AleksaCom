@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>938</width>
+    <width>844</width>
     <height>800</height>
    </rect>
   </property>
@@ -18,6 +18,9 @@
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="minimumSize">
@@ -31,12 +34,42 @@
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetMinimumSize</enum>
+        </property>
         <item>
          <widget class="QGroupBox" name="groupBox">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>100</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>100</height>
+           </size>
+          </property>
           <property name="title">
            <string>GroupBox</string>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_5">
+           <property name="spacing">
+            <number>6</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
            <item>
             <widget class="QComboBox" name="comboBox">
              <property name="minimumSize">
@@ -48,13 +81,22 @@
              <property name="maximumSize">
               <size>
                <width>130</width>
-               <height>16777215</height>
+               <height>25</height>
               </size>
+             </property>
+             <property name="insertPolicy">
+              <enum>QComboBox::InsertAlphabetically</enum>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QPushButton" name="pbRescan">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>25</height>
+              </size>
+             </property>
              <property name="text">
               <string>Rescan</string>
              </property>
@@ -71,7 +113,7 @@
              <property name="maximumSize">
               <size>
                <width>16777215</width>
-               <height>16777215</height>
+               <height>25</height>
               </size>
              </property>
              <property name="text">
@@ -84,13 +126,47 @@
         </item>
         <item>
          <widget class="QGroupBox" name="gbBaudRate">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>100</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>100</height>
+           </size>
+          </property>
           <property name="title">
            <string>BaudRate</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_3">
-           <property name="spacing">
-            <number>6</number>
+           <property name="topMargin">
+            <number>0</number>
            </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <property name="spacing">
+            <number>2</number>
+           </property>
+           <item row="2" column="0">
+            <widget class="QRadioButton" name="rbBaudRate4800">
+             <property name="text">
+              <string>4800</string>
+             </property>
+             <attribute name="buttonGroup">
+              <string notr="true">bgBaudRate</string>
+             </attribute>
+            </widget>
+           </item>
            <item row="1" column="2">
             <widget class="QRadioButton" name="rbBaudRate115200">
              <property name="text">
@@ -111,16 +187,6 @@
              </attribute>
             </widget>
            </item>
-           <item row="0" column="0">
-            <widget class="QRadioButton" name="rbBaudRate1200">
-             <property name="text">
-              <string>1200</string>
-             </property>
-             <attribute name="buttonGroup">
-              <string notr="true">bgBaudRate</string>
-             </attribute>
-            </widget>
-           </item>
            <item row="0" column="1">
             <widget class="QRadioButton" name="rbBaudRate9600">
              <property name="text">
@@ -134,10 +200,10 @@
              </attribute>
             </widget>
            </item>
-           <item row="0" column="2">
-            <widget class="QRadioButton" name="rbBaudRate57600">
+           <item row="0" column="0">
+            <widget class="QRadioButton" name="rbBaudRate1200">
              <property name="text">
-              <string>57600</string>
+              <string>1200</string>
              </property>
              <attribute name="buttonGroup">
               <string notr="true">bgBaudRate</string>
@@ -154,10 +220,10 @@
              </attribute>
             </widget>
            </item>
-           <item row="2" column="0">
-            <widget class="QRadioButton" name="rbBaudRate4800">
+           <item row="0" column="2">
+            <widget class="QRadioButton" name="rbBaudRate57600">
              <property name="text">
-              <string>4800</string>
+              <string>57600</string>
              </property>
              <attribute name="buttonGroup">
               <string notr="true">bgBaudRate</string>
@@ -179,12 +245,36 @@
         </item>
         <item>
          <widget class="QGroupBox" name="gbDataBits">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>100</height>
+           </size>
+          </property>
           <property name="title">
            <string>Data Bits</string>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
            <property name="spacing">
+            <number>2</number>
+           </property>
+           <property name="topMargin">
             <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>9</number>
            </property>
            <item>
             <widget class="QRadioButton" name="rbDataBits5">
@@ -234,12 +324,30 @@
         </item>
         <item>
          <widget class="QGroupBox" name="gbParity">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>110</height>
+           </size>
+          </property>
           <property name="title">
            <string>Parity</string>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_6">
            <property name="spacing">
+            <number>4</number>
+           </property>
+           <property name="topMargin">
             <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>9</number>
            </property>
            <item>
             <widget class="QRadioButton" name="rbParity0">
@@ -294,16 +402,41 @@
              </attribute>
             </widget>
            </item>
+           <item>
+            <spacer name="verticalSpacer_5">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
           </layout>
          </widget>
         </item>
         <item>
          <widget class="QGroupBox" name="gbStopBits">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>100</height>
+           </size>
+          </property>
           <property name="title">
            <string>Stop Bits</string>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_7">
            <property name="spacing">
+            <number>2</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
             <number>0</number>
            </property>
            <item>
@@ -344,11 +477,29 @@
         </item>
         <item>
          <widget class="QGroupBox" name="gbFlowControl">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>100</height>
+           </size>
+          </property>
           <property name="title">
            <string>Flow Control</string>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_8">
            <property name="spacing">
+            <number>2</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
             <number>0</number>
            </property>
            <item>
@@ -408,12 +559,21 @@
          <string>Settings</string>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_7">
+         <property name="sizeConstraint">
+          <enum>QLayout::SetMinimumSize</enum>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>9</number>
+         </property>
          <item>
           <widget class="QPushButton" name="pbSetFont">
            <property name="maximumSize">
             <size>
              <width>100</width>
-             <height>16777215</height>
+             <height>25</height>
             </size>
            </property>
            <property name="text">
@@ -423,58 +583,48 @@
          </item>
          <item>
           <layout class="QGridLayout" name="gridLayout_6">
-           <item row="1" column="0">
-            <widget class="QCheckBox" name="cbAutoStartScript">
-             <property name="text">
-              <string>AutoStart Script</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QCheckBox" name="cbCReqLF">
-             <property name="minimumSize">
-              <size>
-               <width>100</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>CR=LF</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QCheckBox" name="cbTime">
-             <property name="minimumSize">
-              <size>
-               <width>60</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>60</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Time</string>
-             </property>
-            </widget>
-           </item>
            <item row="0" column="0">
             <widget class="QCheckBox" name="cbAutoConDiscon">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>20</height>
+              </size>
+             </property>
              <property name="text">
               <string>Auto Dis/Connect</string>
              </property>
             </widget>
            </item>
-           <item row="0" column="2">
+           <item row="1" column="0">
+            <widget class="QCheckBox" name="cbAutoStartScript">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>20</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>AutoStart Script</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_12">
+           <item>
             <widget class="QCheckBox" name="cbStreamLog">
              <property name="minimumSize">
               <size>
-               <width>100</width>
+               <width>80</width>
                <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>20</height>
               </size>
              </property>
              <property name="text">
@@ -482,12 +632,18 @@
              </property>
             </widget>
            </item>
-           <item row="1" column="2">
+           <item>
             <widget class="QCheckBox" name="cbStayOnTop">
              <property name="minimumSize">
               <size>
-               <width>100</width>
+               <width>80</width>
                <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>20</height>
               </size>
              </property>
              <property name="text">
@@ -498,12 +654,70 @@
           </layout>
          </item>
          <item>
-          <widget class="QSpinBox" name="spinBox_3"/>
+          <layout class="QVBoxLayout" name="verticalLayout_11">
+           <item>
+            <widget class="QCheckBox" name="cbTime">
+             <property name="minimumSize">
+              <size>
+               <width>60</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>60</width>
+               <height>20</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Time</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCReqLF">
+             <property name="minimumSize">
+              <size>
+               <width>60</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>20</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>CR=LF</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="spinBox_3">
+           <property name="minimumSize">
+            <size>
+             <width>50</width>
+             <height>0</height>
+            </size>
+           </property>
+          </widget>
          </item>
          <item>
           <layout class="QGridLayout" name="gridLayout_7">
+           <property name="spacing">
+            <number>0</number>
+           </property>
            <item row="0" column="0">
             <widget class="QPushButton" name="pbAsciiTable">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>25</height>
+              </size>
+             </property>
              <property name="text">
               <string>ASCII Table</string>
              </property>
@@ -511,6 +725,12 @@
            </item>
            <item row="0" column="1">
             <widget class="QPushButton" name="pbScripting">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>25</height>
+              </size>
+             </property>
              <property name="text">
               <string>Scripting</string>
              </property>
@@ -518,6 +738,12 @@
            </item>
            <item row="1" column="0">
             <widget class="QPushButton" name="pbGraph">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>25</height>
+              </size>
+             </property>
              <property name="text">
               <string>Graph</string>
              </property>
@@ -525,6 +751,12 @@
            </item>
            <item row="1" column="1">
             <widget class="QPushButton" name="pbRemote">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>25</height>
+              </size>
+             </property>
              <property name="text">
               <string>Remote</string>
              </property>
@@ -557,8 +789,23 @@
          <property name="spacing">
           <number>6</number>
          </property>
+         <property name="sizeConstraint">
+          <enum>QLayout::SetMinimumSize</enum>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
          <item>
           <widget class="QPushButton" name="pbReceiveClear">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>25</height>
+            </size>
+           </property>
            <property name="text">
             <string>Clear</string>
            </property>
@@ -566,16 +813,35 @@
          </item>
          <item>
           <widget class="QPushButton" name="pbResetCounter">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>25</height>
+            </size>
+           </property>
            <property name="text">
             <string>Reset Counter</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="spinBox_2"/>
+          <widget class="QSpinBox" name="spinBox_2">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>25</height>
+            </size>
+           </property>
+          </widget>
          </item>
          <item>
           <widget class="QLabel" name="lCounter">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>25</height>
+            </size>
+           </property>
            <property name="text">
             <string>Counter = 0</string>
            </property>
@@ -583,8 +849,17 @@
          </item>
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_9">
+           <property name="spacing">
+            <number>0</number>
+           </property>
            <item>
             <widget class="QRadioButton" name="rbHex">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>15</height>
+              </size>
+             </property>
              <property name="text">
               <string>Hex</string>
              </property>
@@ -595,6 +870,12 @@
            </item>
            <item>
             <widget class="QRadioButton" name="rbAscii">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>15</height>
+              </size>
+             </property>
              <property name="text">
               <string>Ascii</string>
              </property>
@@ -607,8 +888,17 @@
          </item>
          <item>
           <layout class="QGridLayout" name="gridLayout_5">
+           <property name="verticalSpacing">
+            <number>0</number>
+           </property>
            <item row="0" column="1">
             <widget class="QCheckBox" name="cbBin">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>15</height>
+              </size>
+             </property>
              <property name="text">
               <string>Bin</string>
              </property>
@@ -616,6 +906,12 @@
            </item>
            <item row="0" column="0">
             <widget class="QCheckBox" name="cbDec">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>15</height>
+              </size>
+             </property>
              <property name="text">
               <string>Dec</string>
              </property>
@@ -623,6 +919,12 @@
            </item>
            <item row="1" column="0">
             <widget class="QCheckBox" name="cbHex">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>15</height>
+              </size>
+             </property>
              <property name="text">
               <string>Hex</string>
              </property>
@@ -632,6 +934,12 @@
          </item>
          <item>
           <widget class="QPushButton" name="pbStartLog">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>25</height>
+            </size>
+           </property>
            <property name="text">
             <string>Start Log</string>
            </property>
@@ -639,6 +947,20 @@
          </item>
          <item>
           <widget class="QPushButton" name="pbStopLog">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>9</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
            <property name="text">
             <string>Stop Log</string>
            </property>
@@ -677,7 +999,7 @@
        <property name="minimumSize">
         <size>
          <width>0</width>
-         <height>0</height>
+         <height>350</height>
         </size>
        </property>
        <property name="maximumSize">
@@ -686,30 +1008,45 @@
          <height>16777215</height>
         </size>
        </property>
+       <property name="frameShadow">
+        <enum>QFrame::Sunken</enum>
+       </property>
+       <property name="undoRedoEnabled">
+        <bool>false</bool>
+       </property>
        <property name="readOnly">
         <bool>true</bool>
        </property>
       </widget>
       <widget class="QWidget" name="verticalLayoutWidget_3">
        <layout class="QVBoxLayout" name="verticalLayout_3">
+        <property name="spacing">
+         <number>0</number>
+        </property>
         <item>
          <widget class="QGroupBox" name="gbTransmit">
           <property name="title">
            <string>Transmit</string>
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_5">
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
            <item>
             <widget class="QPushButton" name="pbTransmitClear">
              <property name="minimumSize">
               <size>
-               <width>100</width>
+               <width>0</width>
                <height>0</height>
               </size>
              </property>
              <property name="maximumSize">
               <size>
-               <width>100</width>
-               <height>16777215</height>
+               <width>60</width>
+               <height>25</height>
               </size>
              </property>
              <property name="text">
@@ -721,14 +1058,14 @@
             <widget class="QPushButton" name="pbSendFile">
              <property name="minimumSize">
               <size>
-               <width>100</width>
+               <width>0</width>
                <height>0</height>
               </size>
              </property>
              <property name="maximumSize">
               <size>
-               <width>100</width>
-               <height>16777215</height>
+               <width>80</width>
+               <height>25</height>
               </size>
              </property>
              <property name="text">
@@ -747,7 +1084,7 @@
              <property name="maximumSize">
               <size>
                <width>70</width>
-               <height>16777215</height>
+               <height>25</height>
               </size>
              </property>
              <item>
@@ -793,7 +1130,7 @@
              <property name="maximumSize">
               <size>
                <width>500</width>
-               <height>16777215</height>
+               <height>25</height>
               </size>
              </property>
             </widget>
@@ -803,7 +1140,7 @@
              <property name="maximumSize">
               <size>
                <width>100</width>
-               <height>16777215</height>
+               <height>25</height>
               </size>
              </property>
              <property name="text">
@@ -815,14 +1152,14 @@
             <widget class="QPushButton" name="pbBreak">
              <property name="minimumSize">
               <size>
-               <width>100</width>
+               <width>0</width>
                <height>0</height>
               </size>
              </property>
              <property name="maximumSize">
               <size>
                <width>100</width>
-               <height>16777215</height>
+               <height>25</height>
               </size>
              </property>
              <property name="text">
@@ -852,8 +1189,20 @@
            <string>Macros</string>
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_4">
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
            <item>
             <widget class="QPushButton" name="pbSetMacros">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>25</height>
+              </size>
+             </property>
              <property name="text">
               <string>Set Macros</string>
              </property>
@@ -861,12 +1210,15 @@
            </item>
            <item>
             <layout class="QGridLayout" name="gridLayout_4">
+             <property name="spacing">
+              <number>0</number>
+             </property>
              <item row="2" column="7">
               <widget class="QPushButton" name="pbM20">
                <property name="maximumSize">
                 <size>
                  <width>50</width>
-                 <height>16777215</height>
+                 <height>25</height>
                 </size>
                </property>
                <property name="text">
@@ -879,7 +1231,7 @@
                <property name="maximumSize">
                 <size>
                  <width>50</width>
-                 <height>16777215</height>
+                 <height>25</height>
                 </size>
                </property>
                <property name="text">
@@ -892,7 +1244,7 @@
                <property name="maximumSize">
                 <size>
                  <width>50</width>
-                 <height>16777215</height>
+                 <height>25</height>
                 </size>
                </property>
                <property name="text">
@@ -905,7 +1257,7 @@
                <property name="maximumSize">
                 <size>
                  <width>50</width>
-                 <height>16777215</height>
+                 <height>25</height>
                 </size>
                </property>
                <property name="text">
@@ -918,7 +1270,7 @@
                <property name="maximumSize">
                 <size>
                  <width>50</width>
-                 <height>16777215</height>
+                 <height>25</height>
                 </size>
                </property>
                <property name="text">
@@ -931,7 +1283,7 @@
                <property name="maximumSize">
                 <size>
                  <width>50</width>
-                 <height>16777215</height>
+                 <height>25</height>
                 </size>
                </property>
                <property name="text">
@@ -944,7 +1296,7 @@
                <property name="maximumSize">
                 <size>
                  <width>50</width>
-                 <height>16777215</height>
+                 <height>25</height>
                 </size>
                </property>
                <property name="text">
@@ -957,7 +1309,7 @@
                <property name="maximumSize">
                 <size>
                  <width>50</width>
-                 <height>16777215</height>
+                 <height>25</height>
                 </size>
                </property>
                <property name="text">
@@ -970,7 +1322,7 @@
                <property name="maximumSize">
                 <size>
                  <width>50</width>
-                 <height>16777215</height>
+                 <height>25</height>
                 </size>
                </property>
                <property name="text">
@@ -983,7 +1335,7 @@
                <property name="maximumSize">
                 <size>
                  <width>50</width>
-                 <height>16777215</height>
+                 <height>25</height>
                 </size>
                </property>
                <property name="text">
@@ -996,7 +1348,7 @@
                <property name="maximumSize">
                 <size>
                  <width>50</width>
-                 <height>16777215</height>
+                 <height>25</height>
                 </size>
                </property>
                <property name="text">
@@ -1009,7 +1361,7 @@
                <property name="maximumSize">
                 <size>
                  <width>50</width>
-                 <height>16777215</height>
+                 <height>25</height>
                 </size>
                </property>
                <property name="text">
@@ -1022,7 +1374,7 @@
                <property name="maximumSize">
                 <size>
                  <width>50</width>
-                 <height>16777215</height>
+                 <height>25</height>
                 </size>
                </property>
                <property name="text">
@@ -1035,7 +1387,7 @@
                <property name="maximumSize">
                 <size>
                  <width>50</width>
-                 <height>16777215</height>
+                 <height>25</height>
                 </size>
                </property>
                <property name="text">
@@ -1048,7 +1400,7 @@
                <property name="maximumSize">
                 <size>
                  <width>50</width>
-                 <height>16777215</height>
+                 <height>25</height>
                 </size>
                </property>
                <property name="text">
@@ -1061,7 +1413,7 @@
                <property name="maximumSize">
                 <size>
                  <width>50</width>
-                 <height>16777215</height>
+                 <height>25</height>
                 </size>
                </property>
                <property name="text">
@@ -1074,7 +1426,7 @@
                <property name="maximumSize">
                 <size>
                  <width>50</width>
-                 <height>16777215</height>
+                 <height>25</height>
                 </size>
                </property>
                <property name="text">
@@ -1087,7 +1439,7 @@
                <property name="maximumSize">
                 <size>
                  <width>50</width>
-                 <height>16777215</height>
+                 <height>25</height>
                 </size>
                </property>
                <property name="text">
@@ -1100,7 +1452,7 @@
                <property name="maximumSize">
                 <size>
                  <width>50</width>
-                 <height>16777215</height>
+                 <height>25</height>
                 </size>
                </property>
                <property name="text">
@@ -1113,7 +1465,7 @@
                <property name="maximumSize">
                 <size>
                  <width>50</width>
-                 <height>16777215</height>
+                 <height>25</height>
                 </size>
                </property>
                <property name="text">
@@ -1126,7 +1478,7 @@
                <property name="maximumSize">
                 <size>
                  <width>50</width>
-                 <height>16777215</height>
+                 <height>25</height>
                 </size>
                </property>
                <property name="text">
@@ -1139,7 +1491,7 @@
                <property name="maximumSize">
                 <size>
                  <width>50</width>
-                 <height>16777215</height>
+                 <height>25</height>
                 </size>
                </property>
                <property name="text">
@@ -1152,7 +1504,7 @@
                <property name="maximumSize">
                 <size>
                  <width>50</width>
-                 <height>16777215</height>
+                 <height>25</height>
                 </size>
                </property>
                <property name="text">
@@ -1165,7 +1517,7 @@
                <property name="maximumSize">
                 <size>
                  <width>50</width>
-                 <height>16777215</height>
+                 <height>25</height>
                 </size>
                </property>
                <property name="text">
@@ -1197,7 +1549,29 @@
            <widget class="QLineEdit" name="leSend"/>
           </item>
           <item>
+           <spacer name="horizontalSpacer_6">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>10</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
            <widget class="QCheckBox" name="cbCR">
+            <property name="minimumSize">
+             <size>
+              <width>50</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="text">
              <string>+CR</string>
             </property>
@@ -1223,7 +1597,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>938</width>
+     <width>844</width>
      <height>22</height>
     </rect>
    </property>
@@ -1231,6 +1605,7 @@
     <property name="title">
      <string>Help</string>
     </property>
+    <addaction name="actionAbout_AleksaCom"/>
     <addaction name="actionAbout_Qt"/>
    </widget>
    <addaction name="menuHelp"/>
@@ -1241,15 +1616,20 @@
     <string>About Qt</string>
    </property>
   </action>
+  <action name="actionAbout_AleksaCom">
+   <property name="text">
+    <string>About AleksaCom</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="bgStopBits"/>
-  <buttongroup name="bgDataBits"/>
-  <buttongroup name="bgFlowControl"/>
   <buttongroup name="bgParity"/>
-  <buttongroup name="bgHexAscii"/>
   <buttongroup name="bgBaudRate"/>
+  <buttongroup name="bgDataBits"/>
+  <buttongroup name="bgStopBits"/>
+  <buttongroup name="bgFlowControl"/>
+  <buttongroup name="bgHexAscii"/>
  </buttongroups>
 </ui>
