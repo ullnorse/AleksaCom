@@ -447,13 +447,13 @@
             <widget class="QCheckBox" name="cbTime">
              <property name="minimumSize">
               <size>
-               <width>50</width>
+               <width>60</width>
                <height>0</height>
               </size>
              </property>
              <property name="maximumSize">
               <size>
-               <width>50</width>
+               <width>60</width>
                <height>16777215</height>
               </size>
              </property>
@@ -1194,7 +1194,7 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
-           <widget class="QLineEdit" name="lineEdit"/>
+           <widget class="QLineEdit" name="leSend"/>
           </item>
           <item>
            <widget class="QCheckBox" name="cbCR">
@@ -1245,11 +1245,11 @@
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="bgDataBits"/>
-  <buttongroup name="bgBaudRate"/>
   <buttongroup name="bgStopBits"/>
-  <buttongroup name="bgParity"/>
+  <buttongroup name="bgDataBits"/>
   <buttongroup name="bgFlowControl"/>
+  <buttongroup name="bgParity"/>
   <buttongroup name="bgHexAscii"/>
+  <buttongroup name="bgBaudRate"/>
  </buttongroups>
 </ui>

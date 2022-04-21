@@ -8,6 +8,9 @@
 #include <QFont>
 #include <QFontDialog>
 #include <QTime>
+#include <QStandardPaths>
+#include <QFileDialog>
+#include <QFile>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -36,6 +39,38 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->pbSetFont, &QPushButton::clicked, this, [this]()
     {
         this->ui->teReceive->setFont(QFontDialog::getFont(0, this));
+    });
+
+    connect(ui->pbSend, &QPushButton::clicked, this, &MainWindow::onSendClicked);
+    connect(this, &MainWindow::dataForTransmit, m_serialPort, &SerialPort::send);
+
+    connect(ui->pbSendFile, &QPushButton::clicked, this, [this]()
+    {
+        auto dir = QStandardPaths::standardLocations(QStandardPaths::StandardLocation::HomeLocation)[0];
+
+        auto fileName = QFileDialog::getOpenFileName(this, "File to send", dir);
+
+        auto text = QByteArray();
+
+        if (fileName.isEmpty())
+        {
+            return;
+        }
+        else
+        {
+            QFile file{fileName};
+
+            if (file.open(QIODevice::OpenModeFlag::ReadOnly))
+            {
+                text = file.readAll();
+            }
+        }
+
+//        qDebug() << text;
+
+        emit dataForTransmit(text);
+
+
     });
 }
 
@@ -86,6 +121,29 @@ void MainWindow::onSerialPortData(const QByteArray &data)
 
     ui->teReceive->insertPlainText(QString(data));
     ui->teReceive->moveCursor(QTextCursor::End);
+}
+
+void MainWindow::onSendClicked()
+{
+    auto text = ui->leSend->text();
+
+    if (ui->cbCR->isChecked())
+    {
+        if (ui->cbCRLF->isChecked())
+        {
+            text.append("\r\n");
+        }
+        else
+        {
+            text.append("\n");
+        }
+    }
+
+    qDebug() << text;
+
+    emit dataForTransmit(QByteArray(text.toUtf8()));
+
+    ui->leSend->clear();
 }
 
 SerialPort::Settings MainWindow::getSerialPortSettings() const

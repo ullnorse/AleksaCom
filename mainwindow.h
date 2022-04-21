@@ -25,11 +25,13 @@ public:
 signals:
     void connectClicked(SerialPort::Settings &settings);
     void disconnectClicked();
+    void dataForTransmit(const QByteArray &data);
 
 private slots:
     void serialPortNames(const QStringList &portNames);
     void onConnectDisconnectClicked();
     void onSerialPortData(const QByteArray &data);
+    void onSendClicked();
 
 private:
     SerialPort::Settings getSerialPortSettings() const;

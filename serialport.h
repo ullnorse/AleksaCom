@@ -35,6 +35,7 @@ public slots:
     void serialPortsRequested();
     void connect(SerialPort::Settings &settings);
     void disconnect();
+    void send(const QByteArray &data);
 
 private:
     QSerialPort *m_serialPort;

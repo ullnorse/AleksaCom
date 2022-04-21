@@ -58,16 +58,25 @@ void SerialPort::disconnect()
     }
 }
 
+void SerialPort::send(const QByteArray &data)
+{
+    if (m_serialPort->isOpen())
+    {
+        m_serialPort->write(data);
+    }
+}
+
 QStringList SerialPort::getPortNames()
 {
     auto list = QStringList();
+    auto ports = QSerialPortInfo::availablePorts();
 
 #ifdef Q_OS_WIN
-    std::ranges::transform(QSerialPortInfo::availablePorts(),
-                           std::back_inserter(list), [](QSerialPortInfo info) {return info.portName();});
+    std::transform(ports.begin(), ports.end(),
+                   std::back_inserter(list), [](QSerialPortInfo info) {return info.portName();});
 #elif defined Q_OS_LINUX
-    std::ranges::transform(QSerialPortInfo::availablePorts(),
-                           std::back_inserter(list), [](QSerialPortInfo info) {return info.systemLocation();});
+    std::transform(ports.begin(), ports.end(),
+                   std::back_inserter(list), [](QSerialPortInfo info) {return info.systemLocation();});
 #endif
 
     return list;
