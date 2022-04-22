@@ -35,7 +35,7 @@ MainWindow::MainWindow(QWidget *parent)
 //    connect(ui->pbAboutQt, &QPushButton::clicked, QApplication::instance(), &QApplication::aboutQt);
     connect(ui->actionAbout_AleksaCom, &QAction::triggered, QApplication::instance(), &QApplication::aboutQt);
     connect(ui->actionAbout_Qt, &QAction::triggered, QApplication::instance(), &QApplication::aboutQt);
-    connect(ui->pbReceiveClear, &QPushButton::clicked, ui->teReceive, &QPlainTextEdit::clear);
+    connect(ui->pbReceiveClear, &QPushButton::clicked, ui->dataDisplay, &DataDisplay::clear);
 
     connect(this, &MainWindow::connectClicked, m_serialPort, &SerialPort::connect);
     connect(this, &MainWindow::disconnectClicked, m_serialPort, &SerialPort::disconnect);
@@ -49,7 +49,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(ui->pbSetFont, &QPushButton::clicked, this, [this]()
     {
-        ui->teReceive->setFont(QFontDialog::getFont(0, this));
+        ui->dataDisplay->setFont(QFontDialog::getFont(0, this));
     });
 
     connect(ui->pbSend, &QPushButton::clicked, this, &MainWindow::onSendClicked);
@@ -58,15 +58,17 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->pbSendFile, &QPushButton::clicked, this, &MainWindow::onSendFileClicked);
     connect(ui->pbAsciiTable, &QPushButton::clicked, this, &MainWindow::onAsciiTableClicked);
 
-    connect(ui->cbStayOnTop, &QCheckBox::clicked, this, [this](bool checked)
+    // handle datadisplay signals and slots
+    connect(this, &MainWindow::dataForDisplay, ui->dataDisplay, &DataDisplay::displayData);
+    connect(ui->bgHexAscii, &QButtonGroup::buttonClicked, [this](QAbstractButton *button)
     {
-        if (checked)
+        if (button->objectName() == "rbAscii")
         {
-            ui->teReceive->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            ui->dataDisplay->setMode(DataDisplay::DisplayMode::ASCII);
         }
-        else
+        else if (button->objectName() == "rbHex")
         {
-            ui->teReceive->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+            ui->dataDisplay->setMode(DataDisplay::DisplayMode::HEX);
         }
     });
 
@@ -131,7 +133,7 @@ void MainWindow::onSerialPortData(const QByteArray &data)
 
     QByteArray text;
 
-    ui->teReceive->moveCursor(QTextCursor::End);
+//    ui->teReceive->moveCursor(QTextCursor::End);
 
     if (ui->cbTime->isChecked())
     {
@@ -139,8 +141,8 @@ void MainWindow::onSerialPortData(const QByteArray &data)
     }
 
     text.append(data);
-    ui->teReceive->insertPlainText(text);
-    ui->teReceive->moveCursor(QTextCursor::End);
+//    ui->teReceive->insertPlainText(text);
+//    ui->teReceive->moveCursor(QTextCursor::End);
 
     emit dataForDisplay(text);
 }

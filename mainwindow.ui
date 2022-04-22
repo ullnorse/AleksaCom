@@ -826,6 +826,12 @@
          </item>
          <item>
           <widget class="QSpinBox" name="spinBox_2">
+           <property name="minimumSize">
+            <size>
+             <width>50</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="maximumSize">
             <size>
              <width>16777215</width>
@@ -890,52 +896,6 @@
           </layout>
          </item>
          <item>
-          <layout class="QGridLayout" name="gridLayout_5">
-           <property name="verticalSpacing">
-            <number>0</number>
-           </property>
-           <item row="0" column="1">
-            <widget class="QCheckBox" name="cbBin">
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>15</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Bin</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QCheckBox" name="cbDec">
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>15</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Dec</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QCheckBox" name="cbHex">
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>15</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Hex</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
           <widget class="QPushButton" name="pbStartLog">
            <property name="maximumSize">
             <size>
@@ -995,7 +955,7 @@
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
-      <widget class="QPlainTextEdit" name="teReceive">
+      <widget class="DataDisplay" name="dataDisplay">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
@@ -1628,6 +1588,13 @@
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>DataDisplay</class>
+   <extends>QPlainTextEdit</extends>
+   <header location="global">datadisplay.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
  <buttongroups>
