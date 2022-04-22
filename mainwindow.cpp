@@ -40,12 +40,16 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this, &MainWindow::connectClicked, m_serialPort, &SerialPort::connect);
     connect(this, &MainWindow::disconnectClicked, m_serialPort, &SerialPort::disconnect);
     connect(m_serialPort, &SerialPort::serialPortData, this, &MainWindow::onSerialPortData);
-    connect(m_serialPort, &SerialPort::connectionSuccessful, this, [this](){this->ui->pbConDiscon->setText("Disconnect");});
+    connect(m_serialPort, &SerialPort::connectionSuccessful, this, [this]()
+    {
+        ui->pbConDiscon->setText("Disconnect");
+        ui->pbRescan->setEnabled(false);
+    });
     connect(m_serialPort, &SerialPort::connectionFailed, this, [this](){this->ui->pbConDiscon->setText("Connect");});
 
     connect(ui->pbSetFont, &QPushButton::clicked, this, [this]()
     {
-        this->ui->teReceive->setFont(QFontDialog::getFont(0, this));
+        ui->teReceive->setFont(QFontDialog::getFont(0, this));
     });
 
     connect(ui->pbSend, &QPushButton::clicked, this, &MainWindow::onSendClicked);
@@ -53,6 +57,18 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(ui->pbSendFile, &QPushButton::clicked, this, &MainWindow::onSendFileClicked);
     connect(ui->pbAsciiTable, &QPushButton::clicked, this, &MainWindow::onAsciiTableClicked);
+
+    connect(ui->cbStayOnTop, &QCheckBox::clicked, this, [this](bool checked)
+    {
+        if (checked)
+        {
+            ui->teReceive->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        }
+        else
+        {
+            ui->teReceive->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+        }
+    });
 
 
     // handle logging signals and slots
@@ -97,6 +113,7 @@ void MainWindow::onConnectDisconnectClicked()
     {
         emit disconnectClicked();
         ui->pbConDiscon->setText("Connect");
+        ui->pbRescan->setEnabled(true);
     }
 }
 
