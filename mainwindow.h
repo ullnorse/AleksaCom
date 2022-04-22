@@ -8,8 +8,10 @@
 #include <QString>
 #include <QByteArray>
 #include <QLabel>
+#include <QFile>
 
 #include "serialport.h"
+#include "logger.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -27,6 +29,7 @@ signals:
     void connectClicked(SerialPort::Settings &settings);
     void disconnectClicked();
     void dataForTransmit(const QByteArray &data);
+    void dataForDisplay(const QByteArray &data);
 
 private slots:
     void serialPortNames(const QStringList &portNames);
@@ -44,7 +47,10 @@ private:
 
 private:
     SerialPort *m_serialPort;
+    Logger *m_logger;
 
     QLabel *label;
+
+    QFile *m_logFile;
 };
 #endif // MAINWINDOW_H

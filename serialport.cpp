@@ -15,7 +15,9 @@ SerialPort::SerialPort(QObject *parent)
     {
         if (m_serialPort->canReadLine())
         {
-            emit serialPortData(m_serialPort->readLine());
+            auto line = m_serialPort->readLine();
+
+            emit serialPortData(line);
         }
     });
 }

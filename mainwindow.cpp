@@ -8,9 +8,11 @@
 #include <QFont>
 #include <QFontDialog>
 #include <QTime>
+#include <QDateTime>
 #include <QStandardPaths>
 #include <QFileDialog>
 #include <QFile>
+#include <QDataStream>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -19,6 +21,10 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     m_serialPort = new SerialPort(this);
+    m_logger = new Logger(this);
+
+
+
 
     connect(ui->pbRescan, &QPushButton::clicked, m_serialPort, &SerialPort::serialPortsRequested);
     connect(m_serialPort, &SerialPort::serialPortNames, this, &MainWindow::serialPortNames);
@@ -27,6 +33,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(ui->pbConDiscon, &QPushButton::clicked, this, &MainWindow::onConnectDisconnectClicked);
 //    connect(ui->pbAboutQt, &QPushButton::clicked, QApplication::instance(), &QApplication::aboutQt);
+    connect(ui->actionAbout_AleksaCom, &QAction::triggered, QApplication::instance(), &QApplication::aboutQt);
     connect(ui->actionAbout_Qt, &QAction::triggered, QApplication::instance(), &QApplication::aboutQt);
     connect(ui->pbReceiveClear, &QPushButton::clicked, ui->teReceive, &QPlainTextEdit::clear);
 
@@ -47,6 +54,24 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->pbSendFile, &QPushButton::clicked, this, &MainWindow::onSendFileClicked);
     connect(ui->pbAsciiTable, &QPushButton::clicked, this, &MainWindow::onAsciiTableClicked);
 
+
+    // handle logging signals and slots
+    connect(ui->pbStartLog, &QPushButton::clicked, m_logger, &Logger::startLogging);
+    connect(ui->pbStopLog, &QPushButton::clicked, m_logger, &Logger::stopLogging);
+
+    connect(m_logger, &Logger::loggingStarted, this, [this]()
+    {
+        ui->pbStartLog->setEnabled(false);
+        ui->pbStopLog->setEnabled(true);
+        connect(this, &MainWindow::dataForDisplay, m_logger, &Logger::logData);
+    });
+
+    connect(m_logger, &Logger::loggingStopped, this, [this]()
+    {
+        ui->pbStartLog->setEnabled(true);
+        ui->pbStopLog->setEnabled(false);
+        disconnect(this, &MainWindow::dataForDisplay, m_logger, &Logger::logData);
+    });
 
 }
 
@@ -87,16 +112,20 @@ void MainWindow::onSerialPortData(const QByteArray &data)
         ui->lCounter->setText(QString("Counter = ") + QString::number(cnt));
     }
 
+    QByteArray text;
 
     ui->teReceive->moveCursor(QTextCursor::End);
 
     if (ui->cbTime->isChecked())
     {
-        ui->teReceive->insertPlainText(QTime::currentTime().toString("hh:mm:ss.zzz> "));
+        text.append(QTime::currentTime().toString("hh:mm:ss.zzz> ").toUtf8());
     }
 
-    ui->teReceive->insertPlainText(QString(data));
+    text.append(data);
+    ui->teReceive->insertPlainText(text);
     ui->teReceive->moveCursor(QTextCursor::End);
+
+    emit dataForDisplay(text);
 }
 
 void MainWindow::onSendClicked()
@@ -133,7 +162,7 @@ void MainWindow::onAsciiTableClicked()
 
 void MainWindow::onSendFileClicked()
 {
-    auto dir = QStandardPaths::standardLocations(QStandardPaths::StandardLocation::HomeLocation)[0];
+    auto dir = QStandardPaths::standardLocations(QStandardPaths::StandardLocation::HomeLocation).at(0);
     auto fileName = QFileDialog::getOpenFileName(this, "File to send", dir);
     auto text = QByteArray();
 

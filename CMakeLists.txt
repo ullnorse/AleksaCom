@@ -20,6 +20,7 @@ set(PROJECT_SOURCES
         mainwindow.h
         mainwindow.ui
         serialport.h serialport.cpp
+        logger.h logger.cpp
         resources.qrc
 )
 
