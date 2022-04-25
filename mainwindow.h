@@ -12,6 +12,7 @@
 
 #include "serialport.h"
 #include "logger.h"
+#include "macros.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -41,6 +42,7 @@ private slots:
 
 private:
     SerialPort::Settings getSerialPortSettings() const;
+    void closeEvent(QCloseEvent *event) override;
 
 private:
     Ui::MainWindow *ui;
@@ -51,6 +53,7 @@ private:
 
     QLabel *label;
 
-    QFile *m_logFile;
+
+    Macros *m_macrosUi;
 };
 #endif // MAINWINDOW_H

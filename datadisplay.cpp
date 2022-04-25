@@ -6,7 +6,6 @@
 DataDisplay::DataDisplay(QWidget *parent)
     : QPlainTextEdit(parent)
 {
-    qDebug() << parent->objectName();
 }
 
 void DataDisplay::displayData(const QByteArray &data)

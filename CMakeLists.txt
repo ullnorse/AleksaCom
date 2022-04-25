@@ -23,6 +23,7 @@ set(PROJECT_SOURCES
         logger.h logger.cpp
         datadisplay.h datadisplay.cpp
         resources.qrc
+        macros.h macros.cpp macros.ui
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

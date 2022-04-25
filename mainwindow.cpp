@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
+#include "macros.h"
 
 #include <QLabel>
 #include <QSerialPortInfo>
@@ -22,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     m_serialPort = new SerialPort(this);
     m_logger = new Logger(this);
-
+    m_macrosUi = new Macros();
 
 
 
@@ -32,7 +33,6 @@ MainWindow::MainWindow(QWidget *parent)
     serialPortNames(m_serialPort->getPortNames());
 
     connect(ui->pbConDiscon, &QPushButton::clicked, this, &MainWindow::onConnectDisconnectClicked);
-//    connect(ui->pbAboutQt, &QPushButton::clicked, QApplication::instance(), &QApplication::aboutQt);
     connect(ui->actionAbout_AleksaCom, &QAction::triggered, QApplication::instance(), &QApplication::aboutQt);
     connect(ui->actionAbout_Qt, &QAction::triggered, QApplication::instance(), &QApplication::aboutQt);
     connect(ui->pbReceiveClear, &QPushButton::clicked, ui->dataDisplay, &DataDisplay::clear);
@@ -91,6 +91,20 @@ MainWindow::MainWindow(QWidget *parent)
         disconnect(this, &MainWindow::dataForDisplay, m_logger, &Logger::logData);
     });
 
+    connect(ui->pbSetMacros, &QPushButton::clicked, this, [this]()
+    {
+        m_macrosUi->show();
+    });
+
+    connect(m_macrosUi, &Macros::buttonClicked, this, [this](QAbstractButton *button)
+    {
+        qDebug() << "button from main window name = " << button->objectName();
+    });
+
+    connect(m_macrosUi, &Macros::macroLabelTextChanged, this, [this](const QString &text)
+    {
+        ui->pbM1->setText(text);
+    });
 }
 
 MainWindow::~MainWindow()
@@ -133,16 +147,12 @@ void MainWindow::onSerialPortData(const QByteArray &data)
 
     QByteArray text;
 
-//    ui->teReceive->moveCursor(QTextCursor::End);
-
     if (ui->cbTime->isChecked())
     {
         text.append(QTime::currentTime().toString("hh:mm:ss.zzz> ").toUtf8());
     }
 
     text.append(data);
-//    ui->teReceive->insertPlainText(text);
-//    ui->teReceive->moveCursor(QTextCursor::End);
 
     emit dataForDisplay(text);
 }
@@ -199,8 +209,6 @@ void MainWindow::onSendFileClicked()
         }
     }
 
-//        qDebug() << text;
-
     emit dataForTransmit(text);
 }
 
@@ -216,5 +224,17 @@ SerialPort::Settings MainWindow::getSerialPortSettings() const
     settings.flowControl = static_cast<QSerialPort::FlowControl>(ui->bgFlowControl->checkedButton()->objectName().remove(0, 13).toInt());
 
     return settings;
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    (void)event;
+
+    if (m_macrosUi->isVisible())
+    {
+        m_macrosUi->close();
+    }
+
+    event->accept();
 }
 
