@@ -62,7 +62,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox">
+    <widget class="QGroupBox" name="gbTransmitMacros">
      <property name="title">
       <string>Transmit Macros</string>
      </property>
@@ -73,7 +73,7 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="QLineEdit" name="lineEdit_47">
+         <widget class="QLineEdit" name="le1">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -115,7 +115,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="spinBox_24">
+         <widget class="QSpinBox" name="sb1">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -131,7 +131,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_24">
+         <widget class="QCheckBox" name="cb1">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -151,7 +151,7 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="QLineEdit" name="lineEdit_7">
+         <widget class="QLineEdit" name="le2">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -193,7 +193,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="spinBox_4">
+         <widget class="QSpinBox" name="sb2">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -209,7 +209,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_4">
+         <widget class="QCheckBox" name="cb2">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -229,7 +229,7 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="QLineEdit" name="lineEdit_9">
+         <widget class="QLineEdit" name="le3">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -271,7 +271,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="spinBox_5">
+         <widget class="QSpinBox" name="sb3">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -287,7 +287,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_5">
+         <widget class="QCheckBox" name="cb3">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -307,7 +307,7 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="QLineEdit" name="lineEdit_11">
+         <widget class="QLineEdit" name="le4">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -349,7 +349,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="spinBox_6">
+         <widget class="QSpinBox" name="sb4">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -365,7 +365,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_6">
+         <widget class="QCheckBox" name="cb4">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -385,7 +385,7 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="QLineEdit" name="lineEdit_3">
+         <widget class="QLineEdit" name="le5">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -427,7 +427,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="spinBox_2">
+         <widget class="QSpinBox" name="sb5">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -443,7 +443,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_2">
+         <widget class="QCheckBox" name="cb5">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -463,7 +463,7 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="QLineEdit" name="lineEdit_45">
+         <widget class="QLineEdit" name="le6">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -505,7 +505,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="spinBox_23">
+         <widget class="QSpinBox" name="sb6">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -521,7 +521,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_23">
+         <widget class="QCheckBox" name="cb6">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -541,7 +541,7 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="QLineEdit" name="lineEdit_43">
+         <widget class="QLineEdit" name="le7">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -583,7 +583,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="spinBox_22">
+         <widget class="QSpinBox" name="sb7">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -599,7 +599,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_22">
+         <widget class="QCheckBox" name="cb7">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -619,7 +619,7 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="QLineEdit" name="lineEdit_41">
+         <widget class="QLineEdit" name="le8">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -661,7 +661,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="spinBox_21">
+         <widget class="QSpinBox" name="sb8">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -677,7 +677,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_21">
+         <widget class="QCheckBox" name="cb8">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -697,7 +697,7 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="QLineEdit" name="lineEdit_39">
+         <widget class="QLineEdit" name="le9">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -739,7 +739,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="spinBox_20">
+         <widget class="QSpinBox" name="sb9">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -755,7 +755,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_20">
+         <widget class="QCheckBox" name="cb9">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -775,7 +775,7 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="QLineEdit" name="lineEdit_37">
+         <widget class="QLineEdit" name="le10">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -817,7 +817,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="spinBox_19">
+         <widget class="QSpinBox" name="sb10">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -833,7 +833,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_19">
+         <widget class="QCheckBox" name="cb10">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -853,7 +853,7 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="QLineEdit" name="lineEdit_35">
+         <widget class="QLineEdit" name="le11">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -895,7 +895,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="spinBox_18">
+         <widget class="QSpinBox" name="sb11">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -911,7 +911,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_18">
+         <widget class="QCheckBox" name="cb11">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -931,7 +931,7 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="QLineEdit" name="lineEdit_33">
+         <widget class="QLineEdit" name="le12">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -973,7 +973,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="spinBox_17">
+         <widget class="QSpinBox" name="sb12">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -989,7 +989,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_17">
+         <widget class="QCheckBox" name="cb12">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -1009,7 +1009,7 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="QLineEdit" name="lineEdit_31">
+         <widget class="QLineEdit" name="le13">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -1051,7 +1051,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="spinBox_16">
+         <widget class="QSpinBox" name="sb13">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -1067,7 +1067,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_16">
+         <widget class="QCheckBox" name="cb13">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -1087,7 +1087,7 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="QLineEdit" name="lineEdit_29">
+         <widget class="QLineEdit" name="le14">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -1129,7 +1129,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="spinBox_15">
+         <widget class="QSpinBox" name="sb14">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -1145,7 +1145,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_15">
+         <widget class="QCheckBox" name="cb14">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -1165,7 +1165,7 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="QLineEdit" name="lineEdit_27">
+         <widget class="QLineEdit" name="le15">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -1207,7 +1207,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="spinBox_14">
+         <widget class="QSpinBox" name="sb15">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -1223,7 +1223,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_14">
+         <widget class="QCheckBox" name="cb15">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -1243,7 +1243,7 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="QLineEdit" name="lineEdit_25">
+         <widget class="QLineEdit" name="le16">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -1285,7 +1285,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="spinBox_13">
+         <widget class="QSpinBox" name="sb16">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -1301,7 +1301,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_13">
+         <widget class="QCheckBox" name="cb16">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -1321,7 +1321,7 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="QLineEdit" name="lineEdit_23">
+         <widget class="QLineEdit" name="le17">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -1363,7 +1363,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="spinBox_12">
+         <widget class="QSpinBox" name="sb17">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -1379,7 +1379,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_12">
+         <widget class="QCheckBox" name="cb17">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -1399,7 +1399,7 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="QLineEdit" name="lineEdit_21">
+         <widget class="QLineEdit" name="le18">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -1441,7 +1441,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="spinBox_11">
+         <widget class="QSpinBox" name="sb18">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -1457,7 +1457,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_11">
+         <widget class="QCheckBox" name="cb18">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -1477,7 +1477,7 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="QLineEdit" name="lineEdit_19">
+         <widget class="QLineEdit" name="le19">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -1519,7 +1519,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="spinBox_10">
+         <widget class="QSpinBox" name="sb19">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -1535,7 +1535,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_10">
+         <widget class="QCheckBox" name="cb19">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -1555,7 +1555,7 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="QLineEdit" name="lineEdit_17">
+         <widget class="QLineEdit" name="le20">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -1597,7 +1597,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="spinBox_9">
+         <widget class="QSpinBox" name="sb20">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -1613,7 +1613,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_9">
+         <widget class="QCheckBox" name="cb20">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -1633,7 +1633,7 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="QLineEdit" name="lineEdit_15">
+         <widget class="QLineEdit" name="le21">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -1675,7 +1675,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="spinBox_8">
+         <widget class="QSpinBox" name="sb21">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -1691,7 +1691,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_8">
+         <widget class="QCheckBox" name="cb21">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -1711,7 +1711,7 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="QLineEdit" name="lineEdit_13">
+         <widget class="QLineEdit" name="le22">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -1753,7 +1753,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="spinBox_7">
+         <widget class="QSpinBox" name="sb22">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -1769,7 +1769,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_7">
+         <widget class="QCheckBox" name="cb22">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -1789,7 +1789,7 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="QLineEdit" name="lineEdit_5">
+         <widget class="QLineEdit" name="le23">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -1831,7 +1831,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="spinBox_3">
+         <widget class="QSpinBox" name="sb23">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -1847,7 +1847,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_3">
+         <widget class="QCheckBox" name="cb23">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -1867,7 +1867,7 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="QLineEdit" name="lineEdit">
+         <widget class="QLineEdit" name="le24">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -1909,7 +1909,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="spinBox">
+         <widget class="QSpinBox" name="sb24">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -1925,7 +1925,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox">
+         <widget class="QCheckBox" name="cb24">
           <property name="maximumSize">
            <size>
             <width>16777215</width>

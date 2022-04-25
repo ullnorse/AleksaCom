@@ -96,15 +96,22 @@ MainWindow::MainWindow(QWidget *parent)
         m_macrosUi->show();
     });
 
-    connect(m_macrosUi, &Macros::buttonClicked, this, [this](QAbstractButton *button)
-    {
-        qDebug() << "button from main window name = " << button->objectName();
-    });
-
     connect(m_macrosUi, &Macros::macroLabelTextChanged, this, [this](const QString &text)
     {
         ui->pbM1->setText(text);
     });
+
+    connect(m_macrosUi, &Macros::macroText, this, [this](const QString &text)
+    {
+        m_serialPort->send(QByteArray(text.toUtf8()));
+    });
+
+
+    auto macroButtons = ui->wMacroButtons->findChildren<QPushButton*>(nullptr);
+    for (auto &button : macroButtons)
+    {
+        connect(button, &QPushButton::clicked, m_macrosUi, &Macros::onMacroButtonClicked);
+    }
 }
 
 MainWindow::~MainWindow()
