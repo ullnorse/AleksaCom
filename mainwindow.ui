@@ -16,8 +16,13 @@
     <height>800</height>
    </size>
   </property>
+  <property name="font">
+   <font>
+    <pointsize>8</pointsize>
+   </font>
+  </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>AleksaCom</string>
   </property>
   <property name="styleSheet">
    <string notr="true"/>
@@ -37,8 +42,11 @@
         <property name="sizeConstraint">
          <enum>QLayout::SetMinimumSize</enum>
         </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
         <item>
-         <widget class="QGroupBox" name="groupBox">
+         <widget class="QGroupBox" name="gbComPort">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -58,7 +66,7 @@
            </size>
           </property>
           <property name="title">
-           <string>GroupBox</string>
+           <string>COM Port</string>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_5">
            <property name="spacing">
@@ -80,7 +88,7 @@
              </property>
              <property name="maximumSize">
               <size>
-               <width>130</width>
+               <width>16777215</width>
                <height>25</height>
               </size>
              </property>
@@ -148,14 +156,17 @@
            <string>BaudRate</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_3">
-           <property name="topMargin">
+           <property name="leftMargin">
             <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>9</number>
            </property>
            <property name="bottomMargin">
             <number>0</number>
            </property>
            <property name="spacing">
-            <number>2</number>
+            <number>0</number>
            </property>
            <item row="2" column="0">
             <widget class="QRadioButton" name="rbBaudRate4800">
@@ -274,7 +285,7 @@
             <number>0</number>
            </property>
            <property name="bottomMargin">
-            <number>9</number>
+            <number>0</number>
            </property>
            <item>
             <widget class="QRadioButton" name="rbDataBits5">
@@ -333,7 +344,7 @@
           <property name="maximumSize">
            <size>
             <width>16777215</width>
-            <height>110</height>
+            <height>100</height>
            </size>
           </property>
           <property name="title">
@@ -341,13 +352,13 @@
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_6">
            <property name="spacing">
-            <number>4</number>
+            <number>0</number>
            </property>
            <property name="topMargin">
             <number>0</number>
            </property>
            <property name="bottomMargin">
-            <number>9</number>
+            <number>0</number>
            </property>
            <item>
             <widget class="QRadioButton" name="rbParity0">
@@ -431,7 +442,7 @@
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_7">
            <property name="spacing">
-            <number>2</number>
+            <number>0</number>
            </property>
            <property name="topMargin">
             <number>0</number>
@@ -494,7 +505,7 @@
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_8">
            <property name="spacing">
-            <number>2</number>
+            <number>0</number>
            </property>
            <property name="topMargin">
             <number>0</number>
@@ -566,14 +577,14 @@
           <number>0</number>
          </property>
          <property name="bottomMargin">
-          <number>9</number>
+          <number>0</number>
          </property>
          <item>
           <widget class="QPushButton" name="pbSetFont">
            <property name="maximumSize">
             <size>
              <width>100</width>
-             <height>25</height>
+             <height>20</height>
             </size>
            </property>
            <property name="text">
@@ -583,12 +594,18 @@
          </item>
          <item>
           <layout class="QGridLayout" name="gridLayout_6">
+           <property name="topMargin">
+            <number>2</number>
+           </property>
+           <property name="bottomMargin">
+            <number>2</number>
+           </property>
            <item row="0" column="0">
             <widget class="QCheckBox" name="cbAutoConDiscon">
              <property name="maximumSize">
               <size>
                <width>16777215</width>
-               <height>20</height>
+               <height>15</height>
               </size>
              </property>
              <property name="text">
@@ -601,7 +618,7 @@
              <property name="maximumSize">
               <size>
                <width>16777215</width>
-               <height>20</height>
+               <height>15</height>
               </size>
              </property>
              <property name="text">
@@ -613,6 +630,12 @@
          </item>
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_12">
+           <property name="topMargin">
+            <number>2</number>
+           </property>
+           <property name="bottomMargin">
+            <number>2</number>
+           </property>
            <item>
             <widget class="QCheckBox" name="cbStreamLog">
              <property name="minimumSize">
@@ -624,7 +647,7 @@
              <property name="maximumSize">
               <size>
                <width>16777215</width>
-               <height>20</height>
+               <height>15</height>
               </size>
              </property>
              <property name="text">
@@ -643,7 +666,7 @@
              <property name="maximumSize">
               <size>
                <width>16777215</width>
-               <height>20</height>
+               <height>15</height>
               </size>
              </property>
              <property name="text">
@@ -655,6 +678,12 @@
          </item>
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_11">
+           <property name="topMargin">
+            <number>2</number>
+           </property>
+           <property name="bottomMargin">
+            <number>2</number>
+           </property>
            <item>
             <widget class="QCheckBox" name="cbTime">
              <property name="minimumSize">
@@ -666,7 +695,7 @@
              <property name="maximumSize">
               <size>
                <width>60</width>
-               <height>20</height>
+               <height>15</height>
               </size>
              </property>
              <property name="text">
@@ -685,7 +714,7 @@
              <property name="maximumSize">
               <size>
                <width>16777215</width>
-               <height>20</height>
+               <height>15</height>
               </size>
              </property>
              <property name="text">
@@ -703,10 +732,22 @@
              <height>0</height>
             </size>
            </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>20</height>
+            </size>
+           </property>
           </widget>
          </item>
          <item>
           <layout class="QGridLayout" name="gridLayout_7">
+           <property name="topMargin">
+            <number>2</number>
+           </property>
+           <property name="bottomMargin">
+            <number>2</number>
+           </property>
            <property name="spacing">
             <number>0</number>
            </property>
@@ -715,7 +756,7 @@
              <property name="maximumSize">
               <size>
                <width>16777215</width>
-               <height>25</height>
+               <height>15</height>
               </size>
              </property>
              <property name="text">
@@ -728,7 +769,7 @@
              <property name="maximumSize">
               <size>
                <width>16777215</width>
-               <height>25</height>
+               <height>15</height>
               </size>
              </property>
              <property name="text">
@@ -741,7 +782,7 @@
              <property name="maximumSize">
               <size>
                <width>16777215</width>
-               <height>25</height>
+               <height>15</height>
               </size>
              </property>
              <property name="text">
@@ -754,7 +795,7 @@
              <property name="maximumSize">
               <size>
                <width>16777215</width>
-               <height>25</height>
+               <height>15</height>
               </size>
              </property>
              <property name="text">
@@ -803,7 +844,7 @@
            <property name="maximumSize">
             <size>
              <width>16777215</width>
-             <height>25</height>
+             <height>20</height>
             </size>
            </property>
            <property name="text">
@@ -816,7 +857,7 @@
            <property name="maximumSize">
             <size>
              <width>16777215</width>
-             <height>25</height>
+             <height>20</height>
             </size>
            </property>
            <property name="text">
@@ -835,7 +876,7 @@
            <property name="maximumSize">
             <size>
              <width>16777215</width>
-             <height>25</height>
+             <height>20</height>
             </size>
            </property>
           </widget>
@@ -845,7 +886,7 @@
            <property name="maximumSize">
             <size>
              <width>16777215</width>
-             <height>25</height>
+             <height>20</height>
             </size>
            </property>
            <property name="text">
@@ -856,14 +897,20 @@
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_9">
            <property name="spacing">
-            <number>0</number>
+            <number>2</number>
+           </property>
+           <property name="topMargin">
+            <number>2</number>
+           </property>
+           <property name="bottomMargin">
+            <number>2</number>
            </property>
            <item>
             <widget class="QRadioButton" name="rbHex">
              <property name="maximumSize">
               <size>
                <width>16777215</width>
-               <height>15</height>
+               <height>10</height>
               </size>
              </property>
              <property name="text">
@@ -879,7 +926,7 @@
              <property name="maximumSize">
               <size>
                <width>16777215</width>
-               <height>15</height>
+               <height>10</height>
               </size>
              </property>
              <property name="text">
@@ -900,7 +947,7 @@
            <property name="maximumSize">
             <size>
              <width>16777215</width>
-             <height>25</height>
+             <height>20</height>
             </size>
            </property>
            <property name="text">
@@ -916,7 +963,7 @@
            <property name="maximumSize">
             <size>
              <width>16777215</width>
-             <height>25</height>
+             <height>20</height>
             </size>
            </property>
            <property name="font">
@@ -965,7 +1012,7 @@
        <property name="minimumSize">
         <size>
          <width>0</width>
-         <height>300</height>
+         <height>350</height>
         </size>
        </property>
        <property name="maximumSize">
@@ -989,6 +1036,19 @@
         <property name="spacing">
          <number>0</number>
         </property>
+        <item>
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
         <item>
          <widget class="QGroupBox" name="gbTransmit">
           <property name="title">
@@ -1543,6 +1603,9 @@
             <property name="text">
              <string>+CR</string>
             </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
            </widget>
           </item>
           <item>
@@ -1558,6 +1621,19 @@
       </widget>
      </widget>
     </item>
+    <item>
+     <spacer name="verticalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -1566,7 +1642,7 @@
      <x>0</x>
      <y>0</y>
      <width>844</width>
-     <height>22</height>
+     <height>18</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuHelp">
@@ -1600,11 +1676,11 @@
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="bgParity"/>
-  <buttongroup name="bgBaudRate"/>
   <buttongroup name="bgDataBits"/>
   <buttongroup name="bgStopBits"/>
   <buttongroup name="bgFlowControl"/>
+  <buttongroup name="bgBaudRate"/>
+  <buttongroup name="bgParity"/>
   <buttongroup name="bgHexAscii"/>
  </buttongroups>
 </ui>

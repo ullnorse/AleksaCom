@@ -19,6 +19,8 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+    QCoreApplication::setApplicationName(QStringLiteral("AleksaCom"));
+
     ui->setupUi(this);
 
     m_serialPort = new SerialPort(this);
@@ -112,6 +114,8 @@ MainWindow::MainWindow(QWidget *parent)
     {
         connect(button, &QPushButton::clicked, m_macrosUi, &Macros::onMacroButtonClicked);
     }
+
+    ui->leSend->installEventFilter(this);
 }
 
 MainWindow::~MainWindow()
@@ -180,8 +184,6 @@ void MainWindow::onSendClicked()
         }
     }
 
-    qDebug() << text;
-
     emit dataForTransmit(QByteArray(text.toUtf8()));
 
     ui->leSend->clear();
@@ -245,3 +247,18 @@ void MainWindow::closeEvent(QCloseEvent *event)
     event->accept();
 }
 
+bool MainWindow::eventFilter(QObject *watched, QEvent *event)
+{
+    if (watched == ui->leSend && event->type() == QEvent::KeyPress)
+    {
+        QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
+
+        if (keyEvent->key() == Qt::Key_Return)
+        {
+            onSendClicked();
+            return true;
+        }
+    }
+
+    return QWidget::eventFilter(watched, event);
+}
