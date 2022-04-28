@@ -13,12 +13,7 @@ SerialPort::SerialPort(QObject *parent)
 
     QObject::connect(m_serialPort, &QSerialPort::readyRead, this, [this]()
     {
-        if (m_serialPort->canReadLine())
-        {
-            auto line = m_serialPort->readLine();
-
-            emit serialPortData(line);
-        }
+        emit serialPortData(m_serialPort->readAll());
     });
 }
 

@@ -50,11 +50,7 @@ private:
 private:
     SerialPort *m_serialPort;
     Logger *m_logger;
-
-    QLabel *label;
-
-
-    Macros *m_macrosUi;
+    Macros *m_macros;
 
     // QObject interface
 public:

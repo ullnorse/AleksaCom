@@ -3,9 +3,7 @@
 #include "macros.h"
 
 #include <QLabel>
-#include <QSerialPortInfo>
 #include <QButtonGroup>
-#include <QPair>
 #include <QFont>
 #include <QFontDialog>
 #include <QTime>
@@ -13,7 +11,6 @@
 #include <QStandardPaths>
 #include <QFileDialog>
 #include <QFile>
-#include <QDataStream>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -25,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     m_serialPort = new SerialPort(this);
     m_logger = new Logger(this);
-    m_macrosUi = new Macros();
+    m_macros = new Macros();
 
 
 
@@ -51,7 +48,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(ui->pbSetFont, &QPushButton::clicked, this, [this]()
     {
-        ui->dataDisplay->setFont(QFontDialog::getFont(0, this));
+        ui->dataDisplay->setFont(QFontDialog::getFont(0, ui->dataDisplay->font()));
     });
 
     connect(ui->pbSend, &QPushButton::clicked, this, &MainWindow::onSendClicked);
@@ -62,7 +59,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // handle datadisplay signals and slots
     connect(this, &MainWindow::dataForDisplay, ui->dataDisplay, &DataDisplay::displayData);
-    connect(ui->bgHexAscii, &QButtonGroup::buttonClicked, [this](QAbstractButton *button)
+    connect(ui->bgHexAscii, &QButtonGroup::buttonClicked, this, [this](QAbstractButton *button)
     {
         if (button->objectName() == "rbAscii")
         {
@@ -95,15 +92,15 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(ui->pbSetMacros, &QPushButton::clicked, this, [this]()
     {
-        m_macrosUi->show();
+        m_macros->show();
     });
 
-    connect(m_macrosUi, &Macros::macroLabelTextChanged, this, [this](const QString &text)
+    connect(m_macros, &Macros::macroLabelTextChanged, this, [this](const QString &text)
     {
         ui->pbM1->setText(text);
     });
 
-    connect(m_macrosUi, &Macros::macroText, this, [this](const QString &text)
+    connect(m_macros, &Macros::macroText, this, [this](const QString &text)
     {
         m_serialPort->send(QByteArray(text.toUtf8()));
     });
@@ -112,7 +109,7 @@ MainWindow::MainWindow(QWidget *parent)
     auto macroButtons = ui->wMacroButtons->findChildren<QPushButton*>(nullptr);
     for (auto &button : macroButtons)
     {
-        connect(button, &QPushButton::clicked, m_macrosUi, &Macros::onMacroButtonClicked);
+        connect(button, &QPushButton::clicked, m_macros, &Macros::onMacroButtonClicked);
     }
 
     ui->leSend->installEventFilter(this);
@@ -239,9 +236,9 @@ void MainWindow::closeEvent(QCloseEvent *event)
 {
     (void)event;
 
-    if (m_macrosUi->isVisible())
+    if (m_macros->isVisible())
     {
-        m_macrosUi->close();
+        m_macros->close();
     }
 
     event->accept();

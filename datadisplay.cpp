@@ -1,8 +1,5 @@
 #include "datadisplay.h"
 
-#include <QTime>
-#include <QDebug>
-
 DataDisplay::DataDisplay(QWidget *parent)
     : QPlainTextEdit(parent)
 {
@@ -18,8 +15,7 @@ void DataDisplay::displayData(const QByteArray &data)
     }
     else if (m_displayMode == DisplayMode::HEX)
     {
-        insertPlainText(data.toHex(' '));
-        insertPlainText(" ");
+        insertPlainText(data.toHex(' ').append(" "));
     }
 
     moveCursor(QTextCursor::End);

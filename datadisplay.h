@@ -1,7 +1,6 @@
 #ifndef DATADISPLAY_H
 #define DATADISPLAY_H
 
-#include <QWidget>
 #include <QPlainTextEdit>
 #include <QByteArray>
 
