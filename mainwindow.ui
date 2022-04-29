@@ -7,13 +7,25 @@
     <x>0</x>
     <y>0</y>
     <width>844</width>
-    <height>800</height>
+    <height>900</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="minimumSize">
    <size>
     <width>800</width>
-    <height>800</height>
+    <height>900</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>16777215</width>
+    <height>16777215</height>
    </size>
   </property>
   <property name="font">
@@ -89,7 +101,7 @@
              <property name="maximumSize">
               <size>
                <width>16777215</width>
-               <height>25</height>
+               <height>20</height>
               </size>
              </property>
              <property name="insertPolicy">
@@ -102,7 +114,7 @@
              <property name="maximumSize">
               <size>
                <width>16777215</width>
-               <height>25</height>
+               <height>20</height>
               </size>
              </property>
              <property name="text">
@@ -121,7 +133,7 @@
              <property name="maximumSize">
               <size>
                <width>16777215</width>
-               <height>25</height>
+               <height>20</height>
               </size>
              </property>
              <property name="text">
@@ -160,7 +172,7 @@
             <number>0</number>
            </property>
            <property name="topMargin">
-            <number>9</number>
+            <number>0</number>
            </property>
            <property name="bottomMargin">
             <number>0</number>
@@ -280,17 +292,14 @@
           <property name="title">
            <string>Data Bits</string>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout_2">
-           <property name="spacing">
-            <number>2</number>
-           </property>
+          <layout class="QGridLayout" name="gridLayout_2">
            <property name="topMargin">
             <number>0</number>
            </property>
            <property name="bottomMargin">
             <number>0</number>
            </property>
-           <item>
+           <item row="0" column="0">
             <widget class="QRadioButton" name="rbDataBits5">
              <property name="text">
               <string>5</string>
@@ -300,7 +309,7 @@
              </attribute>
             </widget>
            </item>
-           <item>
+           <item row="0" column="1">
             <widget class="QRadioButton" name="rbDataBits6">
              <property name="text">
               <string>6</string>
@@ -310,23 +319,23 @@
              </attribute>
             </widget>
            </item>
-           <item>
-            <widget class="QRadioButton" name="rbDataBits7">
-             <property name="text">
-              <string>7</string>
-             </property>
-             <attribute name="buttonGroup">
-              <string notr="true">bgDataBits</string>
-             </attribute>
-            </widget>
-           </item>
-           <item>
+           <item row="1" column="1">
             <widget class="QRadioButton" name="rbDataBits8">
              <property name="text">
               <string>8</string>
              </property>
              <property name="checked">
               <bool>true</bool>
+             </property>
+             <attribute name="buttonGroup">
+              <string notr="true">bgDataBits</string>
+             </attribute>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QRadioButton" name="rbDataBits7">
+             <property name="text">
+              <string>7</string>
              </property>
              <attribute name="buttonGroup">
               <string notr="true">bgDataBits</string>
@@ -353,17 +362,54 @@
           <property name="title">
            <string>Parity</string>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout_6">
-           <property name="spacing">
-            <number>0</number>
-           </property>
+          <layout class="QGridLayout" name="gridLayout">
            <property name="topMargin">
             <number>0</number>
            </property>
            <property name="bottomMargin">
             <number>0</number>
            </property>
-           <item>
+           <item row="3" column="1">
+            <widget class="QRadioButton" name="rbParity3">
+             <property name="text">
+              <string>Odd</string>
+             </property>
+             <attribute name="buttonGroup">
+              <string notr="true">bgParity</string>
+             </attribute>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QRadioButton" name="rbParity4">
+             <property name="text">
+              <string>Space</string>
+             </property>
+             <attribute name="buttonGroup">
+              <string notr="true">bgParity</string>
+             </attribute>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QRadioButton" name="rbParity2">
+             <property name="text">
+              <string>Even</string>
+             </property>
+             <attribute name="buttonGroup">
+              <string notr="true">bgParity</string>
+             </attribute>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QRadioButton" name="rbParity5">
+             <property name="text">
+              <string>Mark</string>
+             </property>
+             <attribute name="buttonGroup">
+              <string notr="true">bgParity</string>
+             </attribute>
+            </widget>
+           </item>
+           <item row="0" column="0">
             <widget class="QRadioButton" name="rbParity0">
              <property name="text">
               <string>No</string>
@@ -375,59 +421,6 @@
               <string notr="true">bgParity</string>
              </attribute>
             </widget>
-           </item>
-           <item>
-            <widget class="QRadioButton" name="rbParity2">
-             <property name="text">
-              <string>Even</string>
-             </property>
-             <attribute name="buttonGroup">
-              <string notr="true">bgParity</string>
-             </attribute>
-            </widget>
-           </item>
-           <item>
-            <widget class="QRadioButton" name="rbParity3">
-             <property name="text">
-              <string>Odd</string>
-             </property>
-             <attribute name="buttonGroup">
-              <string notr="true">bgParity</string>
-             </attribute>
-            </widget>
-           </item>
-           <item>
-            <widget class="QRadioButton" name="rbParity4">
-             <property name="text">
-              <string>Space</string>
-             </property>
-             <attribute name="buttonGroup">
-              <string notr="true">bgParity</string>
-             </attribute>
-            </widget>
-           </item>
-           <item>
-            <widget class="QRadioButton" name="rbParity5">
-             <property name="text">
-              <string>Mark</string>
-             </property>
-             <attribute name="buttonGroup">
-              <string notr="true">bgParity</string>
-             </attribute>
-            </widget>
-           </item>
-           <item>
-            <spacer name="verticalSpacer_5">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
            </item>
           </layout>
          </widget>
@@ -587,7 +580,7 @@
            <property name="maximumSize">
             <size>
              <width>100</width>
-             <height>20</height>
+             <height>25</height>
             </size>
            </property>
            <property name="text">
@@ -728,64 +721,22 @@
           </layout>
          </item>
          <item>
-          <widget class="QSpinBox" name="spinBox_3">
-           <property name="minimumSize">
-            <size>
-             <width>50</width>
-             <height>0</height>
-            </size>
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <property name="spacing">
+            <number>0</number>
            </property>
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>20</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <layout class="QGridLayout" name="gridLayout_7">
            <property name="topMargin">
             <number>2</number>
            </property>
            <property name="bottomMargin">
             <number>2</number>
            </property>
-           <property name="spacing">
-            <number>0</number>
-           </property>
-           <item row="0" column="0">
-            <widget class="QPushButton" name="pbAsciiTable">
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>15</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>ASCII Table</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QPushButton" name="pbScripting">
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>15</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Scripting</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
+           <item>
             <widget class="QPushButton" name="pbGraph">
              <property name="maximumSize">
               <size>
                <width>16777215</width>
-               <height>15</height>
+               <height>25</height>
               </size>
              </property>
              <property name="text">
@@ -793,16 +744,42 @@
              </property>
             </widget>
            </item>
-           <item row="1" column="1">
+           <item>
+            <widget class="QPushButton" name="pbAsciiTable">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>25</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>ASCII Table</string>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QPushButton" name="pbRemote">
              <property name="maximumSize">
               <size>
                <width>16777215</width>
-               <height>15</height>
+               <height>25</height>
               </size>
              </property>
              <property name="text">
               <string>Remote</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pbScripting">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>25</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Scripting</string>
              </property>
             </widget>
            </item>
@@ -847,7 +824,7 @@
            <property name="maximumSize">
             <size>
              <width>60</width>
-             <height>20</height>
+             <height>25</height>
             </size>
            </property>
            <property name="text">
@@ -860,7 +837,7 @@
            <property name="maximumSize">
             <size>
              <width>16777215</width>
-             <height>20</height>
+             <height>25</height>
             </size>
            </property>
            <property name="text">
@@ -879,7 +856,7 @@
            <property name="maximumSize">
             <size>
              <width>16777215</width>
-             <height>20</height>
+             <height>25</height>
             </size>
            </property>
           </widget>
@@ -889,7 +866,7 @@
            <property name="maximumSize">
             <size>
              <width>16777215</width>
-             <height>20</height>
+             <height>25</height>
             </size>
            </property>
            <property name="text">
@@ -913,7 +890,7 @@
              <property name="maximumSize">
               <size>
                <width>16777215</width>
-               <height>10</height>
+               <height>15</height>
               </size>
              </property>
              <property name="text">
@@ -929,7 +906,7 @@
              <property name="maximumSize">
               <size>
                <width>16777215</width>
-               <height>10</height>
+               <height>15</height>
               </size>
              </property>
              <property name="text">
@@ -950,7 +927,7 @@
            <property name="maximumSize">
             <size>
              <width>16777215</width>
-             <height>20</height>
+             <height>25</height>
             </size>
            </property>
            <property name="text">
@@ -966,7 +943,7 @@
            <property name="maximumSize">
             <size>
              <width>16777215</width>
-             <height>20</height>
+             <height>25</height>
             </size>
            </property>
            <property name="font">
@@ -1015,7 +992,7 @@
        <property name="minimumSize">
         <size>
          <width>0</width>
-         <height>350</height>
+         <height>450</height>
         </size>
        </property>
        <property name="maximumSize">
@@ -1023,6 +1000,12 @@
          <width>16777215</width>
          <height>16777215</height>
         </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Courier New</family>
+         <pointsize>10</pointsize>
+        </font>
        </property>
        <property name="frameShadow">
         <enum>QFrame::Sunken</enum>
@@ -1054,6 +1037,12 @@
         </item>
         <item>
          <widget class="QGroupBox" name="gbTransmit">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>50</height>
+           </size>
+          </property>
           <property name="title">
            <string>Transmit</string>
           </property>
@@ -1214,6 +1203,12 @@
         </item>
         <item>
          <widget class="QGroupBox" name="gbMacros">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>70</height>
+           </size>
+          </property>
           <property name="title">
            <string>Macros</string>
           </property>
@@ -1248,7 +1243,7 @@
                 <property name="maximumSize">
                  <size>
                   <width>50</width>
-                  <height>25</height>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="text">
@@ -1261,7 +1256,7 @@
                 <property name="maximumSize">
                  <size>
                   <width>50</width>
-                  <height>25</height>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="text">
@@ -1274,7 +1269,7 @@
                 <property name="maximumSize">
                  <size>
                   <width>50</width>
-                  <height>25</height>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="text">
@@ -1287,7 +1282,7 @@
                 <property name="maximumSize">
                  <size>
                   <width>50</width>
-                  <height>25</height>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="text">
@@ -1300,7 +1295,7 @@
                 <property name="maximumSize">
                  <size>
                   <width>50</width>
-                  <height>25</height>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="text">
@@ -1313,7 +1308,7 @@
                 <property name="maximumSize">
                  <size>
                   <width>50</width>
-                  <height>25</height>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="text">
@@ -1326,7 +1321,7 @@
                 <property name="maximumSize">
                  <size>
                   <width>50</width>
-                  <height>25</height>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="text">
@@ -1339,7 +1334,7 @@
                 <property name="maximumSize">
                  <size>
                   <width>50</width>
-                  <height>25</height>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="text">
@@ -1352,7 +1347,7 @@
                 <property name="maximumSize">
                  <size>
                   <width>50</width>
-                  <height>25</height>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="text">
@@ -1365,7 +1360,7 @@
                 <property name="maximumSize">
                  <size>
                   <width>50</width>
-                  <height>25</height>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="text">
@@ -1378,7 +1373,7 @@
                 <property name="maximumSize">
                  <size>
                   <width>50</width>
-                  <height>25</height>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="text">
@@ -1391,7 +1386,7 @@
                 <property name="maximumSize">
                  <size>
                   <width>50</width>
-                  <height>25</height>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="text">
@@ -1404,7 +1399,7 @@
                 <property name="maximumSize">
                  <size>
                   <width>50</width>
-                  <height>25</height>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="text">
@@ -1417,7 +1412,7 @@
                 <property name="maximumSize">
                  <size>
                   <width>50</width>
-                  <height>25</height>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="text">
@@ -1430,7 +1425,7 @@
                 <property name="maximumSize">
                  <size>
                   <width>50</width>
-                  <height>25</height>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="text">
@@ -1443,7 +1438,7 @@
                 <property name="maximumSize">
                  <size>
                   <width>50</width>
-                  <height>25</height>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="text">
@@ -1456,7 +1451,7 @@
                 <property name="maximumSize">
                  <size>
                   <width>50</width>
-                  <height>25</height>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="text">
@@ -1469,7 +1464,7 @@
                 <property name="maximumSize">
                  <size>
                   <width>50</width>
-                  <height>25</height>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="text">
@@ -1482,7 +1477,7 @@
                 <property name="maximumSize">
                  <size>
                   <width>50</width>
-                  <height>25</height>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="text">
@@ -1495,7 +1490,7 @@
                 <property name="maximumSize">
                  <size>
                   <width>50</width>
-                  <height>25</height>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="text">
@@ -1508,7 +1503,7 @@
                 <property name="maximumSize">
                  <size>
                   <width>50</width>
-                  <height>25</height>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="text">
@@ -1521,7 +1516,7 @@
                 <property name="maximumSize">
                  <size>
                   <width>50</width>
-                  <height>25</height>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="text">
@@ -1534,7 +1529,7 @@
                 <property name="maximumSize">
                  <size>
                   <width>50</width>
-                  <height>25</height>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="text">
@@ -1547,7 +1542,7 @@
                 <property name="maximumSize">
                  <size>
                   <width>50</width>
-                  <height>25</height>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="text">
@@ -1624,19 +1619,6 @@
       </widget>
      </widget>
     </item>
-    <item>
-     <spacer name="verticalSpacer_2">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>40</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -1645,7 +1627,7 @@
      <x>0</x>
      <y>0</y>
      <width>844</width>
-     <height>19</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuHelp">
@@ -1680,10 +1662,10 @@
  <connections/>
  <buttongroups>
   <buttongroup name="bgDataBits"/>
-  <buttongroup name="bgStopBits"/>
-  <buttongroup name="bgFlowControl"/>
   <buttongroup name="bgBaudRate"/>
   <buttongroup name="bgParity"/>
+  <buttongroup name="bgFlowControl"/>
+  <buttongroup name="bgStopBits"/>
   <buttongroup name="bgHexAscii"/>
  </buttongroups>
 </ui>

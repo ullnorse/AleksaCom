@@ -182,8 +182,6 @@ void MainWindow::onSendClicked()
     }
 
     emit dataForTransmit(QByteArray(text.toUtf8()));
-
-    ui->leSend->clear();
 }
 
 void MainWindow::onAsciiTableClicked()
