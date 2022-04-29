@@ -113,6 +113,8 @@ MainWindow::MainWindow(QWidget *parent)
     }
 
     ui->leSend->installEventFilter(this);
+
+    connect(ui->cbStayOnTop, &QCheckBox::clicked, ui->dataDisplay, &DataDisplay::setScrolling);
 }
 
 MainWindow::~MainWindow()

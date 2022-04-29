@@ -18,12 +18,14 @@ public:
 
 public slots:
     void displayData(const QByteArray &data);
+    void setScrolling(bool scrollingEnabled);
 
 public:
     void setMode(DisplayMode mode);
 
 private:
     DisplayMode m_displayMode = DisplayMode::ASCII;
+    bool m_scrollingEnabled = true;
 };
 
 #endif // DATADISPLAY_H
