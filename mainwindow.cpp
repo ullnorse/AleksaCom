@@ -95,11 +95,6 @@ MainWindow::MainWindow(QWidget *parent)
         m_macros->show();
     });
 
-    connect(m_macros, &Macros::macroLabelTextChanged, this, [this](const QString &text)
-    {
-        ui->pbM1->setText(text);
-    });
-
     connect(m_macros, &Macros::macroText, this, [this](const QString &text)
     {
         m_serialPort->send(QByteArray(text.toUtf8()));
@@ -115,6 +110,12 @@ MainWindow::MainWindow(QWidget *parent)
     ui->leSend->installEventFilter(this);
 
     connect(ui->cbStayOnTop, &QCheckBox::clicked, ui->dataDisplay, &DataDisplay::setScrolling);
+
+    connect(m_macros, &Macros::macroLabelTextChanged, this, [this](const QString &buttonName, const QString &text)
+    {
+        auto button = ui->wMacroButtons->findChild<QPushButton*>(buttonName);
+        button->setText(text);
+    });
 }
 
 MainWindow::~MainWindow()

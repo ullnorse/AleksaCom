@@ -8,6 +8,7 @@
 #include <QCheckBox>
 #include <QSpinBox>
 #include <QTimer>
+#include <QRegularExpression>
 
 Macros::Macros(QWidget *parent) :
     QWidget(parent),
@@ -21,6 +22,12 @@ Macros::Macros(QWidget *parent) :
     for (auto &button : macroButtons)
     {
         connect(button, &QPushButton::clicked, this, &Macros::onMacroButtonClicked);
+    }
+
+    auto macroButtonNameLineEdits = ui->gbTransmitMacros->findChildren<QLineEdit*>(QRegularExpression("leM"));
+    for (auto &lineEdit : macroButtonNameLineEdits)
+    {
+        connect(lineEdit, &QLineEdit::textEdited, this, &Macros::onMacroButtonNameEdited);
     }
 
     for (auto &timer : m_timers)
@@ -54,6 +61,12 @@ Macros::Macros(QWidget *parent) :
             }
         });
     }
+
+    connect(this, &Macros::macroLabelTextChanged, this, [this](const QString &buttonName, const QString &text)
+    {
+        auto button = ui->gbTransmitMacros->findChild<QPushButton*>(buttonName);
+        button->setText(text);
+    });
 }
 
 Macros::~Macros()
@@ -66,4 +79,12 @@ void Macros::onMacroButtonClicked()
     auto lineEdit = ui->gbTransmitMacros->findChild<QLineEdit*>("le" + this->sender()->objectName().remove(0, 3));
 
     emit macroText(lineEdit->text().append('\n')); //TODO: remove new line and replace with parsing macro correctly
+}
+
+void Macros::onMacroButtonNameEdited(const QString &text)
+{
+    auto lineEdit = qobject_cast<QLineEdit*>(sender());
+    auto buttonName = "pbM" + lineEdit->objectName().remove(0, 3);
+
+    emit macroLabelTextChanged(buttonName, text);
 }

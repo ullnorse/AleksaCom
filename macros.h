@@ -23,11 +23,12 @@ public:
     ~Macros();
 
 signals:
-    void macroLabelTextChanged(const QString &text);
+    void macroLabelTextChanged(const QString &buttonName, const QString &text);
     void macroText(const QString &text);
 
 public slots:
     void onMacroButtonClicked();
+    void onMacroButtonNameEdited(const QString &text);
 
 private:
     Ui::Macros *ui;
