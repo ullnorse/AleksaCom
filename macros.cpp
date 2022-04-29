@@ -30,12 +30,18 @@ Macros::Macros(QWidget *parent) :
         connect(lineEdit, &QLineEdit::textEdited, this, &Macros::onMacroButtonNameEdited);
     }
 
-    for (auto &timer : m_timers)
+    for (int i = 0; i < static_cast<int>(m_timers.size()); i++)
     {
-        timer.setInterval(1000);
-        connect(&timer, &QTimer::timeout, this, []()
+        auto timer = &m_timers[i];
+
+        timer->setInterval(1000);
+        timer->setObjectName("timer" + QString::number(i + 1));
+
+        connect(timer, &QTimer::timeout, this, [this]()
         {
-            qDebug() << "timer timeout";
+            auto lineEdit = ui->gbTransmitMacros->findChild<QLineEdit*>("le" + this->sender()->objectName().remove(0, 5));
+
+            emit macroText(lineEdit->text().append('\n'));
         });
     }
 
@@ -47,17 +53,17 @@ Macros::Macros(QWidget *parent) :
             int num = this->sender()->objectName().remove(0, 2).toInt();
 
             auto timeoutCheckBoxes = ui->bgMacroButtons->findChildren<QCheckBox*>(nullptr);
-
-
-            qDebug() << "checkbox " << num << " with value " << checked;
+            auto timer = &m_timers[num - 1];
+            auto spinBox = ui->gbTransmitMacros->findChild<QSpinBox*>("sb" + QString::number(num));
 
             if (checked)
             {
-                m_timers[num - 1].start();
+                timer->setInterval(spinBox->value());
+                timer->start();
             }
             else
             {
-                m_timers[num - 1].stop();
+                timer->stop();
             }
         });
     }
