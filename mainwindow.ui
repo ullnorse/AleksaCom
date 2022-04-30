@@ -702,25 +702,6 @@
              </property>
             </widget>
            </item>
-           <item>
-            <widget class="QCheckBox" name="cbCReqLF">
-             <property name="minimumSize">
-              <size>
-               <width>60</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>15</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>CR=LF</string>
-             </property>
-            </widget>
-           </item>
           </layout>
          </item>
          <item>
@@ -985,7 +966,7 @@
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
-      <widget class="DataDisplay" name="dataDisplay">
+      <widget class="DataDisplay" name="dataDisplay" native="true">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
@@ -1010,13 +991,10 @@
          <pointsize>10</pointsize>
         </font>
        </property>
-       <property name="frameShadow">
-        <enum>QFrame::Sunken</enum>
-       </property>
-       <property name="undoRedoEnabled">
+       <property name="undoRedoEnabled" stdset="0">
         <bool>false</bool>
        </property>
-       <property name="readOnly">
+       <property name="readOnly" stdset="0">
         <bool>true</bool>
        </property>
       </widget>
@@ -1141,6 +1119,13 @@
             </widget>
            </item>
            <item>
+            <widget class="QLabel" name="label">
+             <property name="text">
+              <string>Char delay:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QSpinBox" name="spinBox">
              <property name="minimumSize">
               <size>
@@ -1153,6 +1138,15 @@
                <width>500</width>
                <height>25</height>
               </size>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+             </property>
+             <property name="suffix">
+              <string> ms</string>
+             </property>
+             <property name="maximum">
+              <number>9999</number>
              </property>
             </widget>
            </item>
@@ -1594,19 +1588,33 @@
            </spacer>
           </item>
           <item>
-           <widget class="QCheckBox" name="cbCR">
-            <property name="minimumSize">
-             <size>
-              <width>50</width>
-              <height>0</height>
-             </size>
+           <widget class="QComboBox" name="cbTransmitCRLF">
+            <property name="currentText">
+             <string>LF</string>
             </property>
-            <property name="text">
-             <string>+CR</string>
+            <property name="insertPolicy">
+             <enum>QComboBox::InsertAtBottom</enum>
             </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
+            <item>
+             <property name="text">
+              <string>LF</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>CR</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>CR/LF</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>None</string>
+             </property>
+            </item>
            </widget>
           </item>
           <item>
@@ -1657,18 +1665,18 @@
  <customwidgets>
   <customwidget>
    <class>DataDisplay</class>
-   <extends>QPlainTextEdit</extends>
-   <header location="global">datadisplay.h</header>
+   <extends>QWidget</extends>
+   <header>datadisplay.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="bgDataBits"/>
-  <buttongroup name="bgBaudRate"/>
-  <buttongroup name="bgParity"/>
   <buttongroup name="bgFlowControl"/>
   <buttongroup name="bgStopBits"/>
+  <buttongroup name="bgDataBits"/>
   <buttongroup name="bgHexAscii"/>
+  <buttongroup name="bgBaudRate"/>
+  <buttongroup name="bgParity"/>
  </buttongroups>
 </ui>

@@ -192,7 +192,9 @@ void Macros::loadMacroFile(QFile *file)
     for (int i = 0; i < buttonTexts.size(); i++)
     {
         auto button = ui->gbTransmitMacros->findChild<QPushButton*>("pbM" + QString::number(i + 1));
+        auto macroName = ui->gbTransmitMacros->findChild<QLineEdit*>("leM" + QString::number(i + 1));
         button->setText(buttonTexts[i]);
+        macroName->setText(buttonTexts[i]);
     }
 
     for (int i = 0; i < macroNames.size(); i++)

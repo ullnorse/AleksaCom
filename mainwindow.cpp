@@ -24,8 +24,6 @@ MainWindow::MainWindow(QWidget *parent)
     m_logger = new Logger(this);
     m_macros = new Macros();
 
-
-
     connect(ui->pbRescan, &QPushButton::clicked, m_serialPort, &SerialPort::serialPortsRequested);
     connect(m_serialPort, &SerialPort::serialPortNames, this, &MainWindow::serialPortNames);
 
@@ -93,6 +91,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->pbSetMacros, &QPushButton::clicked, this, [this]()
     {
         m_macros->show();
+        m_macros->activateWindow();
     });
 
     connect(m_macros, &Macros::macroText, this, [this](const QString &text)
@@ -172,16 +171,23 @@ void MainWindow::onSendClicked()
 {
     auto text = ui->leSend->text();
 
-    if (ui->cbCR->isChecked())
+    auto lineEnd = ui->cbTransmitCRLF->currentText();
+
+    if (lineEnd == "LF")
     {
-        if (ui->cbCRLF->isChecked())
-        {
-            text.append("\r\n");
-        }
-        else
-        {
-            text.append("\n");
-        }
+        text.append("\n");
+    }
+    else if (lineEnd == "CR")
+    {
+        text.append("\r");
+    }
+    else if (lineEnd == "CR/LF")
+    {
+        text.append("\r\n");
+    }
+    else if (lineEnd == "Hex")
+    {
+        qDebug() << "Hex";
     }
 
     emit dataForTransmit(QByteArray(text.toUtf8()));
