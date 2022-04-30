@@ -7,6 +7,7 @@
 #include <QSpinBox>
 #include <QCheckBox>
 #include <QTimer>
+#include <QFile>
 
 #include <array>
 
@@ -29,6 +30,14 @@ signals:
 public slots:
     void onMacroButtonClicked();
     void onMacroButtonNameEdited(const QString &text);
+
+private slots:
+    void onSaveButtonClicked();
+    void onLoadButtonClicked();
+
+private:
+    void saveMacroFile(QFile *file);
+    void loadMacroFile(QFile *file);
 
 private:
     Ui::Macros *ui;

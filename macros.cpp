@@ -9,6 +9,10 @@
 #include <QSpinBox>
 #include <QTimer>
 #include <QRegularExpression>
+#include <QFileDialog>
+#include <QStandardPaths>
+#include <QTextStream>
+#include <QStringList>
 
 Macros::Macros(QWidget *parent) :
     QWidget(parent),
@@ -73,6 +77,9 @@ Macros::Macros(QWidget *parent) :
         auto button = ui->gbTransmitMacros->findChild<QPushButton*>(buttonName);
         button->setText(text);
     });
+
+    connect(ui->pbSave, &QPushButton::clicked, this, &Macros::onSaveButtonClicked);
+    connect(ui->pbLoad, &QPushButton::clicked, this, &Macros::onLoadButtonClicked);
 }
 
 Macros::~Macros()
@@ -93,4 +100,104 @@ void Macros::onMacroButtonNameEdited(const QString &text)
     auto buttonName = "pbM" + lineEdit->objectName().remove(0, 3);
 
     emit macroLabelTextChanged(buttonName, text);
+}
+
+void Macros::onSaveButtonClicked()
+{
+#ifdef Q_OS_WIN
+    auto dir = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
+#elif defined Q_OS_LINUX
+        auto dir = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
+#endif
+
+    auto fileName = QFileDialog::getSaveFileName(nullptr,
+                                                 "Select log file",
+                                                 dir,
+                                                 "Terminal macro files (*.tmf)",
+                                                 0,
+                                                 QFileDialog::Option::DontConfirmOverwrite);
+
+    if (!fileName.isEmpty())
+    {
+        auto file = QFile(fileName);
+
+        if (file.open(QIODeviceBase::OpenModeFlag::WriteOnly))
+        {
+            saveMacroFile(&file);
+        }
+    }
+}
+
+void Macros::onLoadButtonClicked()
+{
+#ifdef Q_OS_WIN
+    auto dir = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
+#elif defined Q_OS_LINUX
+        auto dir = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
+#endif
+
+    auto fileName = QFileDialog::getOpenFileName(nullptr,
+                                                 "Select log file",
+                                                 dir,
+                                                 "Terminal macro files (*.tmf)",
+                                                 0,
+                                                 QFileDialog::Option::DontConfirmOverwrite);
+
+    if (!fileName.isEmpty())
+    {
+        auto file = QFile(fileName);
+
+        if (file.open(QIODeviceBase::OpenModeFlag::ReadOnly))
+        {
+            loadMacroFile(&file);
+        }
+    }
+}
+
+void Macros::saveMacroFile(QFile *file)
+{
+    auto stream = QTextStream(file);
+
+    stream << "# Terminal macro file v2\n";
+
+    for (int i = 0; i < 24; i++)
+    {
+        auto button = ui->gbTransmitMacros->findChild<QPushButton*>("pbM" + QString::number(i + 1));
+        auto macroName = button->text();
+
+        auto macro = ui->gbTransmitMacros->findChild<QLineEdit*>("le" + QString::number(i + 1));
+        auto command = macro->text();
+
+        stream << macroName << "\n" << command << "\n";
+    }
+}
+
+void Macros::loadMacroFile(QFile *file)
+{
+    auto stream = QTextStream(file);
+
+    // skip first line
+    auto firstLine = stream.readLine();
+    QString buttonText;
+    QString macroName;
+    QStringList buttonTexts;
+    QStringList macroNames;
+
+    while (stream.readLineInto(&buttonText) && stream.readLineInto(&macroName))
+    {
+        buttonTexts << buttonText;
+        macroNames << macroName;
+    }
+
+    for (int i = 0; i < buttonTexts.size(); i++)
+    {
+        auto button = ui->gbTransmitMacros->findChild<QPushButton*>("pbM" + QString::number(i + 1));
+        button->setText(buttonTexts[i]);
+    }
+
+    for (int i = 0; i < macroNames.size(); i++)
+    {
+        auto macro = ui->gbTransmitMacros->findChild<QLineEdit*>("le" + QString::number(i + 1));
+        macro->setText(macroNames[i]);
+    }
 }
