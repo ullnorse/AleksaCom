@@ -24,6 +24,7 @@ set(PROJECT_SOURCES
         datadisplay.h datadisplay.cpp
         resources.qrc
         macros.h macros.cpp macros.ui
+        filesender.h filesender.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

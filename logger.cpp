@@ -22,7 +22,11 @@ Logger::~Logger()
 
 void Logger::startLogging()
 {
+#ifdef Q_OS_WIN
     auto dir = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
+#elif defined Q_OS_LINUX
+        auto dir = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
+#endif
     auto name = QDateTime::currentDateTime().toString("/yyyyMMddhhmmss.log");
 
     auto fileName = QFileDialog::getSaveFileName(nullptr,

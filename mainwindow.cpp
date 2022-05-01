@@ -23,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_serialPort = new SerialPort(this);
     m_logger = new Logger(this);
     m_macros = new Macros();
+    m_fileSender = new FileSender(this);
 
     connect(ui->pbRescan, &QPushButton::clicked, m_serialPort, &SerialPort::serialPortsRequested);
     connect(m_serialPort, &SerialPort::serialPortNames, this, &MainWindow::serialPortNames);
@@ -115,6 +116,9 @@ MainWindow::MainWindow(QWidget *parent)
         auto button = ui->wMacroButtons->findChild<QPushButton*>(buttonName);
         button->setText(text);
     });
+
+    connect(this, &MainWindow::sendFile, m_fileSender, &FileSender::sendFile);
+    connect(m_fileSender, &FileSender::fileData, m_serialPort, &SerialPort::send);
 }
 
 MainWindow::~MainWindow()
@@ -203,28 +207,32 @@ void MainWindow::onAsciiTableClicked()
 }
 
 void MainWindow::onSendFileClicked()
-{
-    auto dir = QStandardPaths::standardLocations(QStandardPaths::StandardLocation::HomeLocation).at(0);
-    auto fileName = QFileDialog::getOpenFileName(this, "File to send", dir);
-    auto text = QByteArray();
+{    
+    auto protocolText = ui->cbProtocol->currentText();
+    auto protocol = FileSender::Protocol::Plain;
 
-    if (fileName.isEmpty())
+    if (protocolText == "Plain")
     {
-        return;
+        protocol = FileSender::Protocol::Plain;
     }
-    else
+    else if (protocolText == "Script")
     {
-        QFile file{fileName};
-
-        if (file.open(QIODevice::OpenModeFlag::ReadOnly))
-        {
-            text = file.readAll();
-        }
+        protocol = FileSender::Protocol::Script;
+    }
+    else if (protocolText == "XModem")
+    {
+        protocol = FileSender::Protocol::XModem;
+    }
+    else if (protocolText == "YModem")
+    {
+        protocol = FileSender::Protocol::YModem;
+    }
+    else if (protocolText == "ZModem")
+    {
+        protocol = FileSender::Protocol::ZModem;
     }
 
-    text.replace("\r\n", "\n");
-
-    emit dataForTransmit(text);
+    emit sendFile(protocol);
 }
 
 SerialPort::Settings MainWindow::getSerialPortSettings() const

@@ -13,6 +13,7 @@
 #include "serialport.h"
 #include "logger.h"
 #include "macros.h"
+#include "filesender.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -31,6 +32,7 @@ signals:
     void disconnectClicked();
     void dataForTransmit(const QByteArray &data);
     void dataForDisplay(const QByteArray &data);
+    void sendFile(FileSender::Protocol protocol);
 
 private slots:
     void serialPortNames(const QStringList &portNames);
@@ -51,6 +53,7 @@ private:
     SerialPort *m_serialPort;
     Logger *m_logger;
     Macros *m_macros;
+    FileSender *m_fileSender;
 
     // QObject interface
 public:
