@@ -222,6 +222,8 @@ void MainWindow::onSendFileClicked()
         }
     }
 
+    text.replace("\r\n", "\n");
+
     emit dataForTransmit(text);
 }
 
