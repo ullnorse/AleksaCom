@@ -15,7 +15,9 @@ void DataDisplay::displayData(const QByteArray &data)
 
     if (m_displayMode == DisplayMode::ASCII)
     {
-        insertPlainText(data);
+        auto d = data;
+        d.removeIf([](auto &c){return c == '\r';});
+        insertPlainText(d);
     }
     else if (m_displayMode == DisplayMode::HEX)
     {
