@@ -944,6 +944,16 @@
           </widget>
          </item>
          <item>
+          <widget class="QCheckBox" name="cbAppend">
+           <property name="toolTip">
+            <string>Appends to an existing log file instead of creating a new one.</string>
+           </property>
+           <property name="text">
+            <string>Append</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <spacer name="horizontalSpacer_5">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
@@ -1620,7 +1630,7 @@
      <x>0</x>
      <y>0</y>
      <width>844</width>
-     <height>22</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuHelp">
@@ -1654,11 +1664,11 @@
  <resources/>
  <connections/>
  <buttongroups>
+  <buttongroup name="bgBaudRate"/>
   <buttongroup name="bgStopBits"/>
   <buttongroup name="bgParity"/>
+  <buttongroup name="bgFlowControl"/>
   <buttongroup name="bgDataBits"/>
   <buttongroup name="bgHexAscii"/>
-  <buttongroup name="bgBaudRate"/>
-  <buttongroup name="bgFlowControl"/>
  </buttongroups>
 </ui>

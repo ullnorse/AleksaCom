@@ -72,7 +72,18 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     // handle logging signals and slots
-    connect(ui->pbStartLog, &QPushButton::clicked, m_logger, &Logger::startLogging);
+    connect(ui->pbStartLog, &QPushButton::clicked, this, [this]()
+    {
+        if (ui->cbAppend->isChecked())
+        {
+            m_logger->startLogging(true);
+        }
+        else
+        {
+            m_logger->startLogging();
+        }
+    });
+
     connect(ui->pbStopLog, &QPushButton::clicked, m_logger, &Logger::stopLogging);
 
     connect(m_logger, &Logger::loggingStarted, this, [this]()

@@ -4,61 +4,75 @@
 #include <QStandardPaths>
 #include <QDateTime>
 #include <QFileDialog>
-#include <QDataStream>
+#include <QMessageBox>
 
 Logger::Logger(QObject *parent)
-    : QObject{parent}
+    : QObject{parent}, m_logFile(new QFile(this))
 {
 
 }
 
 Logger::~Logger()
 {
-    if (m_logFile->isOpen())
-    {
-        m_logFile->close();
-    }
+    m_logFile->close();
 }
 
-void Logger::startLogging()
+void Logger::startLogging(bool append)
 {
 #ifdef Q_OS_WIN
     auto dir = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
 #elif defined Q_OS_LINUX
         auto dir = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
 #endif
+
     auto name = QDateTime::currentDateTime().toString("/yyyyMMddhhmmss.log");
+    QString fileName;
 
-    auto fileName = QFileDialog::getSaveFileName(nullptr,
-                                                 "Select log file",
-                                                 dir + name,
-                                                 "Log files (*.log)",
-                                                 0,
-                                                 QFileDialog::Option::DontConfirmOverwrite);
-
-    m_logFile = new QFile(fileName);
-
-    if (m_logFile->open(QIODeviceBase::OpenModeFlag::Append))
+    if (append)
     {
-        emit loggingStarted();
+        fileName = QFileDialog::getOpenFileName(nullptr,
+                                                "Select log file",
+                                                dir + name,
+                                                "Log files (*.log)");
     }
     else
     {
-        qDebug() << "Can't open log file " + fileName;
+        fileName = QFileDialog::getSaveFileName(nullptr,
+                                                "Select log file",
+                                                dir + name,
+                                                "Log files (*.log)");
+    }
+
+
+    if (fileName.isEmpty())
+    {
+        QMessageBox::information(nullptr, "Opening file failed", "Could not open file for logging");
+        return;
+    }
+
+    m_logFile->setFileName(fileName);
+
+    if (m_logFile->open(QIODevice::Append))
+    {
+        emit loggingStarted(m_logFile->fileName());
+    }
+    else
+    {
+        QMessageBox::information(nullptr, "Opening file failed", QString("Could not open file %1 for writting").arg(m_logFile->fileName()));
     }
 }
 
 void Logger::stopLogging()
 {
-    if (m_logFile->isOpen())
-    {
-        m_logFile->close();
-    }
+    m_logFile->close();
 
     emit loggingStopped();
 }
 
 void Logger::logData(const QByteArray &data)
 {
-    m_logFile->write(data);
+    if (m_logFile->isOpen())
+    {
+        m_logFile->write(data);
+    }
 }

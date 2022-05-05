@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QFile>
 #include <QByteArray>
+#include <QString>
 
 class Logger : public QObject
 {
@@ -13,16 +14,16 @@ public:
     ~Logger();
 
 signals:
-    void loggingStarted();
+    void loggingStarted(const QString &fileName);
     void loggingStopped();
 
 public slots:
-    void startLogging();
+    void startLogging(bool append = false);
     void stopLogging();
     void logData(const QByteArray &data);
 
 private:
-    QFile *m_logFile = nullptr;
+    QFile *m_logFile;
 };
 
 #endif // LOGGER_H
