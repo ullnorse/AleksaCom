@@ -56,7 +56,6 @@ Macros::Macros(QWidget *parent) :
         {
             int num = this->sender()->objectName().remove(0, 2).toInt();
 
-            auto timeoutCheckBoxes = ui->bgMacroButtons->findChildren<QCheckBox*>(nullptr);
             auto timer = &m_timers[num - 1];
             auto spinBox = ui->gbTransmitMacros->findChild<QSpinBox*>("sb" + QString::number(num));
 

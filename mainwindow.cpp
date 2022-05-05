@@ -11,12 +11,15 @@
 #include <QStandardPaths>
 #include <QFileDialog>
 #include <QFile>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-    QCoreApplication::setApplicationName(QStringLiteral("AleksaCom"));
+    QCoreApplication::setOrganizationDomain(QStringLiteral("AleksaCom"));
+    QCoreApplication::setApplicationName(QStringLiteral("AleksaCom6"));
+    QCoreApplication::setApplicationVersion(QStringLiteral("0.0.1"));
 
     ui->setupUi(this);
 
@@ -32,8 +35,14 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(ui->pbConDiscon, &QPushButton::clicked, this, &MainWindow::onConnectDisconnectClicked);
     connect(ui->actionASCII_table, &QAction::triggered,this, &MainWindow::onAsciiTableClicked);
-    connect(ui->actionAbout_AleksaCom, &QAction::triggered, QApplication::instance(), &QApplication::aboutQt);
-    connect(ui->actionAbout_Qt, &QAction::triggered, QApplication::instance(), &QApplication::aboutQt);
+    connect(ui->actionAbout_AleksaCom, &QAction::triggered, this, [this]()
+    {
+        QMessageBox::about(this, "About AleksaCom",
+                           tr("This is AleksaCom %1<br>(c)2022-2022 Aleksa Jonic, &lt;ullnorse@gmail.com&gt;"
+                              "<br>Licensed under the GNU GPL version 3 (or any later version).")
+                               .arg("0.0.1"));
+    });
+    connect(ui->actionAbout_Qt, &QAction::triggered, qApp, &QApplication::aboutQt);
     connect(ui->pbReceiveClear, &QPushButton::clicked, ui->dataDisplay, &DataDisplay::clear);
 
     connect(this, &MainWindow::connectClicked, m_serialPort, &SerialPort::connect);
