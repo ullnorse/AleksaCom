@@ -26,10 +26,12 @@ MainWindow::MainWindow(QWidget *parent)
     m_fileSender = new FileSender(this);
 
     connect(m_serialPort, &SerialPort::serialPortNames, this, &MainWindow::serialPortNames);
+    connect(ui->cbSerialPortNames, &QComboBox::highlighted, m_serialPort, &SerialPort::serialPortsRequested);
 
     serialPortNames(m_serialPort->getPortNames());
 
     connect(ui->pbConDiscon, &QPushButton::clicked, this, &MainWindow::onConnectDisconnectClicked);
+    connect(ui->actionASCII_table, &QAction::triggered,this, &MainWindow::onAsciiTableClicked);
     connect(ui->actionAbout_AleksaCom, &QAction::triggered, QApplication::instance(), &QApplication::aboutQt);
     connect(ui->actionAbout_Qt, &QAction::triggered, QApplication::instance(), &QApplication::aboutQt);
     connect(ui->pbReceiveClear, &QPushButton::clicked, ui->dataDisplay, &DataDisplay::clear);
@@ -40,10 +42,11 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_serialPort, &SerialPort::connectionSuccessful, this, [this]()
     {
         ui->pbConDiscon->setText("Disconnect");
+        ui->pbSendFile->setEnabled(true);
     });
     connect(m_serialPort, &SerialPort::connectionFailed, this, [this](){this->ui->pbConDiscon->setText("Connect");});
 
-    connect(ui->pbSetFont, &QPushButton::clicked, this, [this]()
+    connect(ui->actionSet_Font, &QAction::triggered, this, [this]()
     {
         ui->dataDisplay->setFont(QFontDialog::getFont(0, ui->dataDisplay->font()));
     });
@@ -52,7 +55,6 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this, &MainWindow::dataForTransmit, m_serialPort, &SerialPort::send);
 
     connect(ui->pbSendFile, &QPushButton::clicked, this, &MainWindow::onSendFileClicked);
-    connect(ui->pbAsciiTable, &QPushButton::clicked, this, &MainWindow::onAsciiTableClicked);
 
     // handle datadisplay signals and slots
     connect(this, &MainWindow::dataForDisplay, ui->dataDisplay, &DataDisplay::displayData);
@@ -128,8 +130,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(this, &MainWindow::sendFile, m_fileSender, &FileSender::sendFile);
     connect(m_fileSender, &FileSender::fileData, m_serialPort, &SerialPort::send);
-
-    connect(ui->cbSerialPortNames, &QComboBox::highlighted, m_serialPort, &SerialPort::serialPortsRequested);
 }
 
 MainWindow::~MainWindow()
@@ -154,6 +154,7 @@ void MainWindow::onConnectDisconnectClicked()
     {
         emit disconnectClicked();
         ui->pbConDiscon->setText("Connect");
+        ui->pbSendFile->setEnabled(false);
     }
 }
 
