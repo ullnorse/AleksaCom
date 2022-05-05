@@ -1537,7 +1537,6 @@
    <addaction name="menuSettings"/>
    <addaction name="menuHelp"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
   <action name="actionAbout_Qt">
    <property name="text">
     <string>About Qt</string>

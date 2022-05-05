@@ -27,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_logger = new Logger(this);
     m_macros = new Macros();
     m_fileSender = new FileSender(this);
+    m_statusBar = new StatusBar(this);
 
     connect(m_serialPort, &SerialPort::serialPortNames, this, &MainWindow::serialPortNames);
     connect(ui->cbSerialPortNames, &QComboBox::highlighted, m_serialPort, &SerialPort::serialPortsRequested);
@@ -139,6 +140,13 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(this, &MainWindow::sendFile, m_fileSender, &FileSender::sendFile);
     connect(m_fileSender, &FileSender::fileData, m_serialPort, &SerialPort::send);
+
+    // Handle status bar
+    setStatusBar(m_statusBar);
+    connect(this, &MainWindow::dataForTransmit, this, [this](const QByteArray &data){ m_statusBar->incrementTxCount(data.count()); });
+    connect(m_serialPort, &SerialPort::serialPortData, this, [this](const QByteArray &data) { m_statusBar->incrementRxCount(data.size()); });
+    connect(this, &MainWindow::disconnectClicked, this, [this]() { m_statusBar->setConnectionStatus(false); });
+    connect(m_serialPort, &SerialPort::connectionSuccessful, this, [this]() { m_statusBar->setConnectionStatus(true); });
 }
 
 MainWindow::~MainWindow()
@@ -271,8 +279,6 @@ SerialPort::Settings MainWindow::getSerialPortSettings() const
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-    (void)event;
-
     if (m_macros->isVisible())
     {
         m_macros->close();

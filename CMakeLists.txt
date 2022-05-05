@@ -25,6 +25,7 @@ set(PROJECT_SOURCES
         resources.qrc
         macros.h macros.cpp macros.ui
         filesender.h filesender.cpp
+        statusbar.h statusbar.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

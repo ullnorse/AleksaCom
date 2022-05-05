@@ -14,6 +14,7 @@
 #include "logger.h"
 #include "macros.h"
 #include "filesender.h"
+#include "statusbar.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -54,6 +55,7 @@ private:
     Logger *m_logger;
     Macros *m_macros;
     FileSender *m_fileSender;
+    StatusBar *m_statusBar;
 
     // QObject interface
 public:
