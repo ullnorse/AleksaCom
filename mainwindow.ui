@@ -91,7 +91,7 @@
             <number>0</number>
            </property>
            <item>
-            <widget class="QComboBox" name="comboBox">
+            <widget class="QComboBox" name="cbSerialPortNames">
              <property name="minimumSize">
               <size>
                <width>130</width>
@@ -106,19 +106,6 @@
              </property>
              <property name="insertPolicy">
               <enum>QComboBox::InsertAlphabetically</enum>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pbRescan">
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>20</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Rescan</string>
              </property>
             </widget>
            </item>

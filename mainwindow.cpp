@@ -25,7 +25,6 @@ MainWindow::MainWindow(QWidget *parent)
     m_macros = new Macros();
     m_fileSender = new FileSender(this);
 
-    connect(ui->pbRescan, &QPushButton::clicked, m_serialPort, &SerialPort::serialPortsRequested);
     connect(m_serialPort, &SerialPort::serialPortNames, this, &MainWindow::serialPortNames);
 
     serialPortNames(m_serialPort->getPortNames());
@@ -41,7 +40,6 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_serialPort, &SerialPort::connectionSuccessful, this, [this]()
     {
         ui->pbConDiscon->setText("Disconnect");
-        ui->pbRescan->setEnabled(false);
     });
     connect(m_serialPort, &SerialPort::connectionFailed, this, [this](){this->ui->pbConDiscon->setText("Connect");});
 
@@ -130,6 +128,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(this, &MainWindow::sendFile, m_fileSender, &FileSender::sendFile);
     connect(m_fileSender, &FileSender::fileData, m_serialPort, &SerialPort::send);
+
+    connect(ui->cbSerialPortNames, &QComboBox::highlighted, m_serialPort, &SerialPort::serialPortsRequested);
 }
 
 MainWindow::~MainWindow()
@@ -139,8 +139,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::serialPortNames(const QStringList &portNames)
 {
-    ui->comboBox->clear();
-    ui->comboBox->addItems(portNames);
+    ui->cbSerialPortNames->clear();
+    ui->cbSerialPortNames->addItems(portNames);
 }
 
 void MainWindow::onConnectDisconnectClicked()
@@ -154,7 +154,6 @@ void MainWindow::onConnectDisconnectClicked()
     {
         emit disconnectClicked();
         ui->pbConDiscon->setText("Connect");
-        ui->pbRescan->setEnabled(true);
     }
 }
 
@@ -250,7 +249,7 @@ SerialPort::Settings MainWindow::getSerialPortSettings() const
 {
     SerialPort::Settings settings;
 
-    settings.portName    = ui->comboBox->currentText();
+    settings.portName    = ui->cbSerialPortNames->currentText();
     settings.baudRate    = static_cast<QSerialPort::BaudRate>(ui->bgBaudRate->checkedButton()->objectName().remove(0, 10).toInt());
     settings.dataBits    = static_cast<QSerialPort::DataBits>(ui->bgDataBits->checkedButton()->objectName().remove(0, 10).toInt());
     settings.parity      = static_cast<QSerialPort::Parity>(ui->bgParity->checkedButton()->objectName().remove(0, 8).toInt());
