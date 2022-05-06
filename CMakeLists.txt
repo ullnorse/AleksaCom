@@ -26,6 +26,7 @@ set(PROJECT_SOURCES
         macros.h macros.cpp macros.ui
         filesender.h filesender.cpp
         statusbar.h statusbar.cpp
+        connectbutton.h connectbutton.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

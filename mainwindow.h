@@ -30,14 +30,12 @@ public:
 
 signals:
     void connectClicked(SerialPort::Settings &settings);
-    void disconnectClicked();
     void dataForTransmit(const QByteArray &data);
     void dataForDisplay(const QByteArray &data);
     void sendFile(FileSender::Protocol protocol);
 
 private slots:
     void serialPortNames(const QStringList &portNames);
-    void onConnectDisconnectClicked();
     void onSerialPortData(const QByteArray &data);
     void onSendClicked();
     void onAsciiTableClicked();

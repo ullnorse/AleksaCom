@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 #include "macros.h"
+#include "connectbutton.h"
 
 #include <QLabel>
 #include <QButtonGroup>
@@ -29,12 +30,29 @@ MainWindow::MainWindow(QWidget *parent)
     m_fileSender = new FileSender(this);
     m_statusBar = new StatusBar(this);
 
-    connect(m_serialPort, &SerialPort::serialPortNames, this, &MainWindow::serialPortNames);
-    connect(ui->cbSerialPortNames, &QComboBox::highlighted, m_serialPort, &SerialPort::serialPortsRequested);
-
     serialPortNames(m_serialPort->getPortNames());
 
-    connect(ui->pbConDiscon, &QPushButton::clicked, this, &MainWindow::onConnectDisconnectClicked);
+
+
+    connect(ui->cbSerialPortNames, &QComboBox::highlighted, m_serialPort, &SerialPort::serialPortsRequested);
+
+
+
+    connect(ui->connectionButton, &ConnectButton::connectClicked, this, [this]()
+    {
+        auto settings = getSerialPortSettings();
+        emit connectClicked(settings);
+    });
+
+    connect(ui->connectionButton, &ConnectButton::disconnectClicked, this, [this]()
+    {
+        ui->pbSendFile->setEnabled(false);
+        m_statusBar->setConnectionStatus(false);
+    });
+    connect(ui->connectionButton, &ConnectButton::disconnectClicked, m_serialPort, &SerialPort::disconnect);
+
+
+
     connect(ui->actionASCII_table, &QAction::triggered,this, &MainWindow::onAsciiTableClicked);
     connect(ui->actionAbout_AleksaCom, &QAction::triggered, this, [this]()
     {
@@ -47,19 +65,13 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->pbReceiveClear, &QPushButton::clicked, ui->dataDisplay, &DataDisplay::clear);
 
     connect(this, &MainWindow::connectClicked, m_serialPort, &SerialPort::connect);
-    connect(this, &MainWindow::disconnectClicked, m_serialPort, &SerialPort::disconnect);
     connect(m_serialPort, &SerialPort::serialPortData, this, &MainWindow::onSerialPortData);
-    connect(m_serialPort, &SerialPort::connectionSuccessful, this, [this]()
-    {
-        ui->pbConDiscon->setText("Disconnect");
-        ui->pbSendFile->setEnabled(true);
-    });
-    connect(m_serialPort, &SerialPort::connectionFailed, this, [this](){this->ui->pbConDiscon->setText("Connect");});
+    connect(m_serialPort, &SerialPort::connectionSuccessful, ui->connectionButton, &ConnectButton::changeToDisconnect);
+    connect(m_serialPort, &SerialPort::connectionSuccessful, this, [this]() { ui->pbSendFile->setEnabled(true); });
+    connect(m_serialPort, &SerialPort::connectionFailed, ui->connectionButton, &ConnectButton::changeToConnect);
+    connect(m_serialPort, &SerialPort::serialPortNames, this, &MainWindow::serialPortNames);
 
-    connect(ui->actionSet_Font, &QAction::triggered, this, [this]()
-    {
-        ui->dataDisplay->setFont(QFontDialog::getFont(0, ui->dataDisplay->font()));
-    });
+    connect(ui->actionSet_Font, &QAction::triggered, this, [this]() { ui->dataDisplay->setFont(QFontDialog::getFont(0, ui->dataDisplay->font())); });
 
     connect(ui->pbSend, &QPushButton::clicked, this, &MainWindow::onSendClicked);
     connect(this, &MainWindow::dataForTransmit, m_serialPort, &SerialPort::send);
@@ -90,7 +102,7 @@ MainWindow::MainWindow(QWidget *parent)
         }
         else
         {
-            m_logger->startLogging();
+            m_logger->startLogging(false);
         }
     });
 
@@ -145,7 +157,6 @@ MainWindow::MainWindow(QWidget *parent)
     setStatusBar(m_statusBar);
     connect(this, &MainWindow::dataForTransmit, this, [this](const QByteArray &data){ m_statusBar->incrementTxCount(data.count()); });
     connect(m_serialPort, &SerialPort::serialPortData, this, [this](const QByteArray &data) { m_statusBar->incrementRxCount(data.size()); });
-    connect(this, &MainWindow::disconnectClicked, this, [this]() { m_statusBar->setConnectionStatus(false); });
     connect(m_serialPort, &SerialPort::connectionSuccessful, this, [this]() { m_statusBar->setConnectionStatus(true); });
 }
 
@@ -158,21 +169,6 @@ void MainWindow::serialPortNames(const QStringList &portNames)
 {
     ui->cbSerialPortNames->clear();
     ui->cbSerialPortNames->addItems(portNames);
-}
-
-void MainWindow::onConnectDisconnectClicked()
-{
-    if (!ui->pbConDiscon->text().compare("Connect"))
-    {
-        auto settings = getSerialPortSettings();
-        emit connectClicked(settings);
-    }
-    else if (!ui->pbConDiscon->text().compare("Disconnect"))
-    {
-        emit disconnectClicked();
-        ui->pbConDiscon->setText("Connect");
-        ui->pbSendFile->setEnabled(false);
-    }
 }
 
 void MainWindow::onSerialPortData(const QByteArray &data)

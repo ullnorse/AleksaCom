@@ -110,7 +110,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pbConDiscon">
+            <widget class="ConnectButton" name="connectionButton">
              <property name="minimumSize">
               <size>
                <width>0</width>
@@ -1563,6 +1563,11 @@
    <class>DataDisplay</class>
    <extends>QWidget</extends>
    <header>datadisplay.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ConnectButton</class>
+   <extends>QPushButton</extends>
+   <header>connectbutton.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
