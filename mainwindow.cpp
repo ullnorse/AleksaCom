@@ -34,9 +34,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 
 
-    connect(ui->cbSerialPortNames, &QComboBox::highlighted, m_serialPort, &SerialPort::serialPortsRequested);
-
-
+    connect(ui->pbRescan, &QPushButton::clicked, m_serialPort, &SerialPort::serialPortsRequested);
 
     connect(ui->connectionButton, &ConnectButton::connectClicked, this, [this]()
     {

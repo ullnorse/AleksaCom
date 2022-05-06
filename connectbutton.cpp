@@ -19,11 +19,11 @@ ConnectButton::ConnectButton(QWidget *parent) : QPushButton(parent)
 void ConnectButton::changeToConnect()
 {
     m_state = State::Connect;
-    setText("Connected");
+    setText("Connect");
 }
 
 void ConnectButton::changeToDisconnect()
 {
     m_state = State::Disconnect;
-    setText("Disconnected");
+    setText("Disconnect");
 }

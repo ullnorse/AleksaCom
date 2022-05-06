@@ -110,6 +110,13 @@
             </widget>
            </item>
            <item>
+            <widget class="QPushButton" name="pbRescan">
+             <property name="text">
+              <string>Rescan</string>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="ConnectButton" name="connectionButton">
              <property name="minimumSize">
               <size>
@@ -1573,11 +1580,11 @@
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="bgBaudRate"/>
-  <buttongroup name="bgStopBits"/>
-  <buttongroup name="bgParity"/>
   <buttongroup name="bgFlowControl"/>
+  <buttongroup name="bgBaudRate"/>
   <buttongroup name="bgDataBits"/>
+  <buttongroup name="bgParity"/>
   <buttongroup name="bgHexAscii"/>
+  <buttongroup name="bgStopBits"/>
  </buttongroups>
 </ui>
