@@ -1,10 +1,10 @@
 #ifndef DATADISPLAY_H
 #define DATADISPLAY_H
 
-#include <QPlainTextEdit>
+#include <QTextEdit>
 #include <QByteArray>
 
-class DataDisplay : public QPlainTextEdit
+class DataDisplay : public QTextEdit
 {
     Q_OBJECT
 public:
@@ -19,6 +19,7 @@ public:
 public slots:
     void displayData(const QByteArray &data);
     void setScrolling(bool scrollingEnabled);
+    void setTimestamp(bool timestamp);
 
 public:
     void setMode(DisplayMode mode);
@@ -26,6 +27,7 @@ public:
 private:
     DisplayMode m_displayMode = DisplayMode::ASCII;
     bool m_scrollingEnabled = true;
+    bool m_timestamp = false;
 };
 
 #endif // DATADISPLAY_H

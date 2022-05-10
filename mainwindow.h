@@ -36,7 +36,6 @@ signals:
 
 private slots:
     void serialPortNames(const QStringList &portNames);
-    void onSerialPortData(const QByteArray &data);
     void onSendClicked();
     void onAsciiTableClicked();
     void onSendFileClicked();

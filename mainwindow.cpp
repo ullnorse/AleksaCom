@@ -13,6 +13,7 @@
 #include <QFileDialog>
 #include <QFile>
 #include <QMessageBox>
+#include <QCloseEvent>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -63,7 +64,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->pbReceiveClear, &QPushButton::clicked, ui->dataDisplay, &DataDisplay::clear);
 
     connect(this, &MainWindow::connectClicked, m_serialPort, &SerialPort::connect);
-    connect(m_serialPort, &SerialPort::serialPortData, this, &MainWindow::onSerialPortData);
+    connect(m_serialPort, &SerialPort::serialPortData, ui->dataDisplay, &DataDisplay::displayData);
     connect(m_serialPort, &SerialPort::connectionSuccessful, ui->connectionButton, &ConnectButton::changeToDisconnect);
     connect(m_serialPort, &SerialPort::connectionSuccessful, this, [this]() { ui->pbSendFile->setEnabled(true); });
     connect(m_serialPort, &SerialPort::connectionFailed, ui->connectionButton, &ConnectButton::changeToConnect);
@@ -141,6 +142,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->leSend->installEventFilter(this);
 
     connect(ui->cbStayOnTop, &QCheckBox::clicked, ui->dataDisplay, &DataDisplay::setScrolling);
+    connect(ui->cbTime, &QCheckBox::clicked, ui->dataDisplay, &DataDisplay::setTimestamp);
 
     connect(m_macros, &Macros::macroLabelTextChanged, this, [this](const QString &buttonName, const QString &text)
     {
@@ -167,30 +169,6 @@ void MainWindow::serialPortNames(const QStringList &portNames)
 {
     ui->cbSerialPortNames->clear();
     ui->cbSerialPortNames->addItems(portNames);
-}
-
-void MainWindow::onSerialPortData(const QByteArray &data)
-{
-    static int cnt = 0;
-
-    int c = data.count(ui->spinBox_2->text().toInt());
-
-    if (c != 0)
-    {
-        cnt += c;
-        ui->lCounter->setText(QString("Counter = ") + QString::number(cnt));
-    }
-
-    QByteArray text;
-
-    if (ui->cbTime->isChecked())
-    {
-        text.append(QTime::currentTime().toString("hh:mm:ss.zzz> ").toUtf8());
-    }
-
-    text.append(data);
-
-    emit dataForDisplay(text);
 }
 
 void MainWindow::onSendClicked()

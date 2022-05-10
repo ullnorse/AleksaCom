@@ -1,23 +1,33 @@
 #include "datadisplay.h"
 #include <QScrollBar>
 #include <QDebug>
+#include <QTime>
 
 DataDisplay::DataDisplay(QWidget *parent)
-    : QPlainTextEdit(parent)
+    : QTextEdit(parent)
 {
 }
 
 void DataDisplay::displayData(const QByteArray &data)
 {
     auto old_position = verticalScrollBar()->value();
+    auto text = data;
 
     moveCursor(QTextCursor::End);
 
     if (m_displayMode == DisplayMode::ASCII)
     {
-        auto d = data;
-        d.removeIf([](auto &c){return c == '\r';});
-        insertPlainText(d);
+        if (m_timestamp)
+        {
+            setTextColor(QColor(Qt::blue));
+
+            insertPlainText(QTime::currentTime().toString("[hh:mm:ss.zzz] ").toUtf8());
+
+            setTextColor(QColor(Qt::black));
+        }
+
+        text.removeIf([](auto &c){return c == '\r';});
+        insertPlainText(text);
     }
     else if (m_displayMode == DisplayMode::HEX)
     {
@@ -49,4 +59,9 @@ void DataDisplay::setScrolling(bool scrollingEnabled)
 void DataDisplay::setMode(DisplayMode mode)
 {
     m_displayMode = mode;
+}
+
+void DataDisplay::setTimestamp(bool timestamp)
+{
+    m_timestamp = timestamp;
 }
